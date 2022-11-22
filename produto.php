@@ -38,7 +38,7 @@
                 include("conexao.php");
 
                 // Realiza a busca no banco de dados, trazendo somente informações do produto em especifico
-                $detalhes = "SELECT * FROM produtos p 
+                $detalhes = "SELECT * , date_format(p.proAtualizacao, '%d %b %Y') as dataAtualizacao FROM produtos p 
                             INNER JOIN tamanhos t ON t.tamId = p.tam_Id
                             INNER JOIN estabelecimentos e ON e.estId = p.est_Id
                             INNER JOIN cidades c ON c.cidId = e.cid_Id
@@ -54,6 +54,7 @@
                   <h3>".$lancheDetalhe["proNome"]." (".$lancheDetalhe["tamNome"].")</h3>
                   <p>".$lancheDetalhe["proDescricao"]."</p>
                   <h1> R$".$lancheDetalhe["proPreco"]."</h1>
+                  <h4> Atualizado em: ".$lancheDetalhe["dataAtualizacao"]."</h4>
                   <div class='desc-links'>
                       <h2>Peça já!</h2>
                       <div class='links'>";
@@ -93,9 +94,6 @@
                   </div>
               </div>
               <div class='produto-info'>
-                  <div class='card-nota'>
-                      <p>4,5<i class='fas fa-star'></i></p>
-                  </div>
                   <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
                   <div class='lanchonete-info cheia'>
                   <a href='./produtos_loja.php?id_loja=".$lancheDetalhe["estId"]."'>

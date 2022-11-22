@@ -31,7 +31,9 @@
 
     $consulta = mysqli_query($conn,$sql);
     $count = mysqli_num_rows($consulta);
-    $campo = mysqli_fetch_array($consulta);
+    
+    $consulta1 = mysqli_query($conn,$sql); 
+    $campo1 = mysqli_fetch_array($consulta1);
 ?>
     <header class="header">
         <div id="menu-btn" class="fas fa-bars icons"></div>        
@@ -47,12 +49,12 @@
     </header>
     <div class="loja-header">
         <div class="loja-info">
-            <h1><?php echo $campo["estNome"] ?></h1>
+            <h1><?php echo $campo1["estNome"] ?></h1>
             <div class='card-nota'>
                 <p>4,5<i class='fas fa-star'></i></p>
             </div>
         </div>
-        <img src="<?php echo "./cadastro-em-etapas/images/estabelecimentos/".$campo["estLogo"];?>" alt="" class="loja-logo">
+        <img src="<?php echo "./cadastro-em-etapas/images/estabelecimentos/".$campo1["estLogo"];?>" alt="" class="loja-logo">
     </div>
     <div class="loja-produtos">
         <h1>Todos os Produtos</h1>
@@ -67,7 +69,7 @@
                     }
                     else{
                     // Percorre o array de resultados, imprimindo cada índice com suas informações em um card
-                        while($campo = mysqli_fetch_array($consulta)){               
+                        while($campo = mysqli_fetch_array($consulta)){
                             echo "<a href='./produto.php?id=".$campo["proId"]."'>
                                 <div class='card'>
                                     <div class='card-nota'>
@@ -81,7 +83,7 @@
                                 </div>
                             </a>";
                         } 
-                    }           
+                    }          
                     mysqli_close($conn);
                 ?>            
             </div>
