@@ -58,14 +58,13 @@
                       <h2>Peça já!</h2>
                       <div class='links'>";
                       if ($lancheDetalhe["lnk_much"] <> NULL){
-                          echo "<a href=".$lancheDetalhe['lnk_much']."><img src='./images/Delivery Much Logo 1.svg' alt='Delivery Much'></a>";
+                          echo "<a href=".$lancheDetalhe['lnk_much']." target='_blank'><img src='./images/Delivery Much Logo 1.svg' alt='Delivery Much'></a>";
                       }
                       if ($lancheDetalhe["lnk_ifood"] <> NULL){
-                          echo "<a href=".$lancheDetalhe['lnk_ifood'].">
-                          <img src='./images/ifood-43 1.svg' alt='iFood'></a>";
+                          echo "<a href=".$lancheDetalhe['lnk_ifood']." target='_blank'><img src='./images/ifood-43 1.svg' alt='iFood'></a>";
                       }
                       if ($lancheDetalhe["lnk_aiqfome"] <> NULL){
-                          echo "<a href=".$lancheDetalhe['lnk_aiqfome']."><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>";
+                          echo "<a href=".$lancheDetalhe['lnk_aiqfome']." target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>";
                       }
                   echo "</div>
                   </div>
