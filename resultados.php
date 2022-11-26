@@ -94,9 +94,6 @@
                 while($campo = mysqli_fetch_array($consulta)){               
                     echo "<a href='./produto.php?id=".$campo["proId"]."'>
                         <div class='card'>
-                            <div class='card-nota'>
-                                <p>4,5<i class='fas fa-star'></i></p>
-                            </div>
                             <div class='card-content'>
                                 <img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>
                                 <h3 style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden'>".$campo["proNome"]." (".$campo["tamNome"].")</h3>

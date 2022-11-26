@@ -880,9 +880,6 @@ section{
     width: 100%;
     padding: 0;
   }
-  .produto .produto-info img{
-    width: 80%;
-  }
   .produto .produto-info .btn-favorito {
     width: 70%;
   }

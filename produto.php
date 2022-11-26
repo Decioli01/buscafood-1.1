@@ -59,13 +59,13 @@
                       <h2>Peça já!</h2>
                       <div class='links'>";
                       if ($lancheDetalhe["lnk_much"] <> NULL){
-                          echo "<a href=".$lancheDetalhe['lnk_much']." target='_blank'><img src='./images/Delivery Much Logo 1.svg' alt='Delivery Much'></a>";
+                          echo "<a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img src='./images/Delivery Much Logo 1.svg' alt='Delivery Much'></a>";
                       }
                       if ($lancheDetalhe["lnk_ifood"] <> NULL){
-                          echo "<a href=".$lancheDetalhe['lnk_ifood']." target='_blank'><img src='./images/ifood-43 1.svg' alt='iFood'></a>";
+                          echo "<a href='".$lancheDetalhe['lnk_ifood']."' target='_blank'><img src='./images/ifood-43 1.svg' alt='iFood'></a>";
                       }
                       if ($lancheDetalhe["lnk_aiqfome"] <> NULL){
-                          echo "<a href=".$lancheDetalhe['lnk_aiqfome']." target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>";
+                          echo "<a href='".$lancheDetalhe['lnk_aiqfome']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>";
                       }
                   echo "</div>
                   </div>
@@ -81,7 +81,7 @@
                           </p>
                           <div class='social-links'>";
                             if ($lancheDetalhe["estWhatsapp"] <> NULL){
-                                echo "<a href='https://wa.me/55".$lancheDetalhe["estWhatsapp"]."' target='_blank'><i class='fab fa-whatsapp'></i></a>";
+                                echo "<a href='https://wa.me/55".$lancheDetalhe["estWhatsapp"]."'target='_blank'><i class='fab fa-whatsapp'></i></a>";
                             }                          
                             if ($lancheDetalhe["lnk_inst"] <> NULL){
                                 echo "<a href='".$lancheDetalhe["lnk_inst"]."'target='_blank'><i class='fab fa-instagram'></i></a>";
@@ -106,7 +106,7 @@
                         </p>
                       <div class='social-links'>";
                         if ($lancheDetalhe["estWhatsapp"] <> NULL){
-                            echo "<a href='https://wa.me/55".$lancheDetalhe["estWhatsapp"]."' target='_blank'><i class='fab fa-whatsapp'></i></a>";
+                            echo "<a href='https://wa.me/55".$lancheDetalhe["estWhatsapp"]."'target='_blank'><i class='fab fa-whatsapp'></i></a>";
                         }                          
                         if ($lancheDetalhe["lnk_inst"] <> NULL){
                             echo "<a href='".$lancheDetalhe["lnk_inst"]."'target='_blank'><i class='fab fa-instagram'></i></a>";
