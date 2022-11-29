@@ -34,7 +34,7 @@ html::-webkit-scrollbar-thumb {
 }
 
 body {
-  background: url(../images/background.jpg);
+  background: #161616;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -454,7 +454,7 @@ section{
   display: flex;
   flex-direction: column;
   text-align: center;
-  border-right: 3px solid #aaa;
+  border-right: 3px solid #F0B212;
   height: 100;
 }
 .results-filtros h3{
@@ -513,37 +513,57 @@ section{
   align-items: start;
   justify-content: space-around;
 }
-.results .results-cards .card{
-  margin: 15px;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 1rem;
-  max-width: 15rem;
-  max-height: 18rem;
-  color: #fff;
-  text-align: center;
-  border: 1px solid #F0B212;
-  border-radius: 33px;
-}
-.results-cards .card img{
+.results .results-cards .card {
+  backdrop-filter: 6.6px;
   border-radius: 14px;
-  max-width: 200px;
-  height: 100px;
-  box-sizing: border-box;
+  margin-bottom: 50px;
+  width: 150px;
+  height: 180px;
+  background: #ddd;
+  padding: .8em;
+  overflow: visible;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.card-img {
+  height: 50%;
   width: 100%;
+  border-radius: .5rem;
+  transition: .3s ease;
 }
-.results-cards .card .card-nota{
-  margin-bottom: 1.2rem;
-  font-size: 1.3rem;
+.card-img img{
+  margin: 0 auto;
+  max-width: 200px;
+  border-radius: 14px;
+  width: 100%;
+  height: 100px;
 }
-.results-cards .card .card-nota i{
-  color: #F0B212;
-  margin-left: .3rem;
-  align-self: center;
+.card-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
 }
-.results-cards .card h2 {
-  color: #F0B212;
+/*Text*/
+.text-title {
+  color: #323232;
+  margin-top: 15px;
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.5em;
+}
+.card-footer .text-title{
+  margin-top: 0;
+  color: #F0A500;
   font-size: 2rem;
 }
+/*Hover*/
+.card:hover .card-img {
+  transform: translateY(-25%);
+  box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
+}
+
 
 /* PRODUTO */
 .produto .produto-header{
@@ -555,7 +575,7 @@ section{
 }
 .produto .conteudos{
   margin: 0 auto;
-  margin-top: 3rem;
+  margin-top: 9rem;
   width: 100%;
   color: #fff;
   display: flex;
@@ -728,6 +748,16 @@ section{
     display: none;
   }
 }
+@media (max-width: 1024px){
+  .results .results-cards .card{
+    max-width: 120px;
+    max-height: 150px;
+    border-radius: 20px;
+  }
+  .results-cards .card img{
+    height: 70px;
+  }
+}
 
 @media (max-width: 991px){
   html{
@@ -771,6 +801,20 @@ section{
   }
   .results-filtros{
     margin-left: -1rem;
+  }
+  .results .results-cards{
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    width: 100%;
+    height: 100%;
+    margin-left: 5%;
+  }
+  .results .results-cards .card{
+    max-width: 100px;
+    max-height: 130px;
+    border-radius: 20px;
+  }
+  .results-cards .card img{
+    height: 70px;
   }
   .produto .produto-info .lanchonete-info.mobile{
     display: none;
@@ -819,15 +863,18 @@ section{
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     width: 100%;
     height: 100%;
-    margin-left: 0;
+    margin-left: 5%;
   }
   .results .results-cards .card{
-    max-width: 10rem;
-    max-height: 15rem;
+    max-width: 100px;
+    max-height: 130px;
     border-radius: 20px;
   }
   .results-cards .card img{
-    height: 50px;
+    height: 70px;
+  }
+  .card-footer {
+    padding: 0;
   }
   .produto .produto-info .lanchonete-info.mobile{
     display: none;
@@ -850,8 +897,11 @@ section{
   .results{
     flex-direction: column;
   }
+  .results-cards{
+    margin-top: 20px;
+  }
   .results-cards .card img{
-    height: 50px;
+    height: 70px;
   }
   .results-filtros{
     margin-left: .5rem;
