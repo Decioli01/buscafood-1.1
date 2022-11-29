@@ -76,7 +76,7 @@
                     <h4>R$10,00</h4>
                     <h4>R$100,00</h4>
                 </div>
-                <input type="submit" name="btn-filtrar" class="btn" value="Filtrar" style="margin: 1.5rem; align-self: center;">
+                <input type="submit" name="btn-filtrar" class="btn" value="Filtrar" style="margin: 1.5rem; align-self: center; padding: 1rem;">
                 </form>
             </div> 
     </div>

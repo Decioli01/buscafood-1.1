@@ -69,12 +69,16 @@
                         while($campo = mysqli_fetch_array($consulta)){
                             echo "<a href='./produto.php?id=".$campo["proId"]."'>
                                 <div class='card'>
-                                    <div class='card-content'>
+                                    <div class='card-img'>
                                         <img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>
-                                        <h3 style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden'>".$campo["proNome"]."</h3>
-                                        <h2>R$".$campo["proPreco"]."</h2>
                                     </div>
-                                </div>
+                                    <div class='card-info'>
+                                        <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
+                                    </div>
+                                    <div class='card-footer'>
+                                        <span class='text-title'>R$".$campo["proPreco"]."</span>
+                                    </div>
+                                </div> 
                             </a>";
                         } 
                     }          

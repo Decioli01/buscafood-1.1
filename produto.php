@@ -14,7 +14,7 @@
 
     <title>Produto</title>
 </head>
-<body>
+<body class="produto-body">
     <header class="header">
         <div id="menu-btn" class="fas fa-bars icons"></div>
         <nav class="navbar">
@@ -28,9 +28,6 @@
         <a href="index.html" class="logo"><img src="./images/Logo.svg" alt=""></a>
     </header>
     <section class="produto">
-        <header class="produto-header">
-            <img src="./images/Logo.svg" alt="logo BuscaFood®">
-        </header>
         <div class="conteudos">
             <?php 
                 // Pega o ID da produto por meio da URL vindo do card clicado
