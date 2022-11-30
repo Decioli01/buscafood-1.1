@@ -707,6 +707,11 @@ section{
     display: none;
   }
 }
+@media (max-width: 1430px){
+  .home .content{
+    padding-top: 5%;
+  } 
+}
 
 @media (max-width: 1200px){
   html{
@@ -714,7 +719,8 @@ section{
   }
   .header{
     padding: 3rem;
-  } 
+  }
+  
   section{
     padding: 3rem 2rem;
   }
