@@ -15,31 +15,4 @@ window.onscroll = () =>{
    navbar.classList.remove('active');
 }
 
-let darkModebtn = document.querySelector('#btnDarkMode')
-
-darkModebtn.onclick = () =>
-{
-   var element = document.body;
-   var textHome = document.querySelector('.text');
-   var input1 = document.querySelector('.search');
-   var input2 = document.querySelector('.location');
-   var header = document.querySelector('.header');
-   var categorias = document.querySelector('.categorias');
-          
-   header.classList.toggle("dark-mode")
-   textHome.classList.toggle("textDarkMode");
-   input1.classList.toggle("darkBox");
-   input2.classList.toggle("darkBox");
-   element.classList.toggle("dark-mode");
-   categorias.classList.toggle("dark-modeCat");
-
-   if (darkModebtn.checked){
-      document.querySelector('#logo').src = './images/LogoDark.svg';
-   }
-   else {
-      darkModebtn.checked = false;
-      document.querySelector('#logo').src = './images/LogoLight.png';
-   }
-}
-
 

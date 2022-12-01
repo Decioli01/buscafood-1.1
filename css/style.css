@@ -221,7 +221,7 @@ input:checked + .slider:before {
 .home .content .search-box i{
   position: absolute;
   top: 1.8rem; right: 2rem;
-  color: #94939357;
+  color: #323232;
   font-size: 2.5rem;
   cursor: pointer;
 }
@@ -547,7 +547,6 @@ input:checked + .slider:before {
 /* RESULTADOS */
 .logo-result img{
   width: 20rem;
-  margin-top: 3rem;
 }
 .results{
   display: flex;
@@ -555,7 +554,6 @@ input:checked + .slider:before {
   justify-content: space-between;
 }
 .results-filtros{
-  color: #fff;
   width: 20%;
   margin-left: -9rem;
   display: flex;
@@ -610,22 +608,23 @@ input:checked + .slider:before {
   width: 60%;
   margin: 0 auto;
 }
-
 .results .results-cards{
   width: 80%;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 2fr));
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   align-items: start;
-  gap: 1.5rem;
-  justify-content: center;
+  justify-content: start;
+  gap: 25px;
+  /* justify-content: center; */
 }
 .results .results-cards .card {
   border-radius: 14px;
   background: #ddd;
   padding: .8em;
   overflow: visible;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  box-shadow: -3px 3px 10px black;
+  
 }
 .card-img {
   height: 50%;
@@ -891,6 +890,9 @@ input:checked + .slider:before {
   .results-cards .card img{
     height: 80px;
   }
+  .card-footer{
+    padding-top: 0;
+  }
   .produto .produto-info .lanchonete-info.mobile{
     display: none;
   }
@@ -965,12 +967,16 @@ input:checked + .slider:before {
     margin-left: -1rem;
   }
   .results .results-cards{
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 15rem));
+    justify-content: center;
     width: 100%;
     height: 100%;
   }
   .results-cards .card img{
     height: 70px;
+  }
+  .card-footer{
+    padding-top: 0;
   }
   .produto .produto-info .lanchonete-info.mobile{
     display: none;
@@ -1019,7 +1025,7 @@ input:checked + .slider:before {
     font-size: 2rem;
   }
   .results .results-cards{
-    grid-template-columns: repeat(auto-fit, minmax(15rem, 2fr));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 15rem));
     place-items: center;
     width: 100%;
     height: 100%;
@@ -1059,10 +1065,11 @@ input:checked + .slider:before {
     flex-direction: column;
   }
   .results-cards{
+    gap: 4rem;
     margin-top: 20px;
   }
   .results-cards .card{
-    max-width: 120px;
+    max-width: 110px;
     max-height: 150px;
   }
   .results-cards .card img{
@@ -1119,8 +1126,5 @@ input:checked + .slider:before {
   .loja-header img{
     width: 15rem;
     margin-right: 15%;
-  }
-  .logo-result{
-    margin: 0 auto 2rem auto;
   }
 }

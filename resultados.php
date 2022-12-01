@@ -56,9 +56,15 @@
     // Guarda a quantidade de itens encontrados na busca em uma variavel
     $count = mysqli_num_rows($consulta);
 
-    echo "<a href='index.html' class='logo-result' style='width: fit-content;'><img src='./images/Logo.svg' alt='' style='margin-left: 3rem;'></a>";
+    echo "<div style='display: flex; justify-content: space-between; align-items: center; padding-top: 20px;'>
+            <a href='index.html' class='logo-result' style='width: fit-content;'><img id='logo' src='./images/LogoLight.png' alt='' style='margin-left: 3rem;'></a>
+            <label style='margin-right: 20px' class='switch'>
+                <input id='btnDarkMode' type='checkbox'>
+                <span class='slider'></span>
+            </label>
+            </div>";  
     // Mostra a quantidade de itens encontrados com a busca
-    echo "<h1 style='margin-top: 1rem; color: #fff; text-align: center;'>Exibindo $count resultados para '$prato' em '$local'</h1>";
+    echo "<h1 style='margin-top: 1rem; text-align: center;'>Exibindo $count resultados para '$prato' em '$local'</h1>";
 ?>
 <section class="results">
     <div class="results-filtros">
@@ -85,7 +91,7 @@
         // Faz a verificação para quando a busca não retorna nenhum resultado, imprimindo a mensagem na tela, caso contrário percorre o array de resultados
             if ($count <= 0){
                 echo "<div>
-                        <h3 style='color: #fff; text-align: center; font-size:3rem'>Não foram encontrados resultados!<br>
+                        <h3 style='text-align: center; font-size:3rem'>Não foram encontrados resultados!<br>
                         Tente novamente utilizando outros termos</h3>
                     </div>";
             }
@@ -112,7 +118,7 @@
         ?>            
     </div>
 </section> 
-<script src="./js/script.js"></script>
+<script src="./js/darkMode.js"></script>
 </body>
 </html>
 
