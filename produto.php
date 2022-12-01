@@ -16,16 +16,20 @@
 </head>
 <body class="produto-body">
     <header class="header">
-        <div id="menu-btn" class="fas fa-bars icons"></div>
+        <a href="index.html" class="logo"><img id="logo" src="./images/LogoLight.png" alt=""></a>
+        <div id="menu-btn" class="fas fa-bars icons"></div>       
         <nav class="navbar">
             <a href="index.html">Home</a>
-            <a href="./desenvolvedores.html">Desenvolvedores</a>
-            <span class="space"></span>
             <a href="./contato.html">Contato</a>
-            <a href="#blogs">Nosso App</a>
+            <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
+            <a href="./app.html">Nosso App</a>
             <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
+            <label class="switch">
+                <input id="btnDarkMode" type="checkbox">
+                <span class="slider"></span>
+            </label>
         </nav>
-        <a href="index.html" class="logo"><img src="./images/Logo.svg" alt=""></a>
+        
     </header>
     <section class="produto">
         <div class="conteudos">
@@ -56,7 +60,7 @@
                       <h2>Peça já!</h2>
                       <div class='links'>";
                       if ($lancheDetalhe["lnk_much"] <> NULL){
-                          echo "<a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img src='./images/Delivery Much Logo 1.svg' alt='Delivery Much'></a>";
+                          echo "<a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img id='logoDelM' src='./images/DeliveryMuch LogoLight.svg' alt='Delivery Much'></a>";
                       }
                       if ($lancheDetalhe["lnk_ifood"] <> NULL){
                           echo "<a href='".$lancheDetalhe['lnk_ifood']."' target='_blank'><img src='./images/ifood-43 1.svg' alt='iFood'></a>";
@@ -119,5 +123,6 @@
         </div>
     </section>
     <script src="./js/script.js"></script>
+    <script src="./js/darkMode.js"></script>
 </body>
 </html>

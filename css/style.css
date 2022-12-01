@@ -10,7 +10,7 @@
   outline: none;
   border: none;
   text-transform: capitalize;
-  transition: all .2s linear;
+  transition: all .1s linear;
 }
 
 html {
@@ -671,18 +671,13 @@ input:checked + .slider:before {
 .produto-body{
   height: 100vh;
 }
-.produto .produto-header{
-  display: flex;
-  justify-content: flex-end;
-}
-.produto .produto-header img {
-  width: 20rem;
+.produto-body .header{
+  background-color: #fff;
 }
 .produto .conteudos{
   margin: 0 auto;
   margin-top: 9rem;
   width: 100%;
-  color: #fff;
   display: flex;
   justify-content: space-around;
 }
@@ -1094,6 +1089,7 @@ input:checked + .slider:before {
  
   .produto .conteudos{
     flex-direction: column-reverse;
+    margin-top: 330px;
   }
   .produto .produto-header{
     justify-content: center;

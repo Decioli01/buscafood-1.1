@@ -27,10 +27,13 @@ darkModebtn.onclick = () =>
    element.classList.toggle("dark-mode");
 
    if (darkModebtn.checked){
+
       document.querySelector('#logo').src = './images/LogoDark.svg';
+      document.querySelector('#logoDelM').src = './images/DeliveryMuch LogoDark.svg';
    }
    else {
       darkModebtn.checked = false;
       document.querySelector('#logo').src = './images/LogoLight.png';
+      document.querySelector('#logoDelM').src = './images/DeliveryMuch LogoLight.svg';
    }
 }
