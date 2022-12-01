@@ -15,8 +15,6 @@
 
 html {
   font-size: 62.5%;
-  scroll-behavior: smooth;
-  scroll-padding-top: 8rem;
   overflow-x: hidden;
 }
 
@@ -58,7 +56,9 @@ section{
   margin-top: 1rem;
   cursor: pointer;
   border: .2rem solid rgba(255,255,255,.3);
-  background: no-repeat;
+  border-radius: 10px 30px 10px 30px;
+  background: #323232;
+  color: #fff;
   font-size: 1.7rem;
   padding: 1rem 3rem;
 }
@@ -76,7 +76,9 @@ section{
 }
 .btn:hover, .btn#login:hover{
   color: #000;
-  background: #F0A500;
+  font-weight: 700;
+  transform: scale(1.1);
+  background: #F0B212;
 }
 
 /* HEADER */
@@ -88,13 +90,12 @@ section{
   z-index: 1000;
   background: transparent;
   display: flex;
-  padding: 3rem 9%;
+  padding: 2rem 9%;
   align-items: center;
   justify-content: space-around;
   /* gap: 1rem; */
 }
 .header .navbar{
-  margin-left: 7rem;
   display: flex;
   align-self: center;
 }
@@ -167,9 +168,9 @@ section{
   height: 1.2em;
   width: 1.2em;
   border-radius: 50%;
-  left: 10%;
+  left: 15%;
   bottom: 20%;
-  box-shadow: inset 5px -4px 0px 0px #fff000;
+  box-shadow: inset 5px -4px 0px 15px #fff000;
   background: var(--background);
   transition: .5s;
 }
@@ -178,7 +179,7 @@ input:checked + .slider {
 }
 input:checked + .slider:before {
   transform: translateX(100%);
-  box-shadow: inset 15px -4px 0px 15px #fff000;
+  box-shadow: inset 5px -5px 0px 0px #fff000;
 }
 
 
@@ -186,7 +187,7 @@ input:checked + .slider:before {
 /* HOME */
 .home{
   background-image: url('../images/background.png');
-  height: 80vh;
+  height: 90vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -195,7 +196,7 @@ input:checked + .slider:before {
   max-width: 60%;
   margin-top: 5rem;
   text-align: center;
-  padding-top: 10%;
+  margin-left: -50px;
 }
 .home .content form{
   margin: 0 auto;
@@ -208,7 +209,8 @@ input:checked + .slider:before {
   text-indent: 1.3rem;
   font-size: 1.6rem;
   background: none;
-  border: 0.2rem solid #323232;
+  border: solid 1.5px #9e9e9e;
+  border-radius: 1rem;
   text-transform: none;
   width: 100%;
   margin: .7rem 0;
@@ -239,6 +241,7 @@ input:checked + .slider:before {
   justify-content: center;
   height: 6rem;
   list-style: none;
+  color: #323232;
 }
 .home .content .categorias .categoria{
   height: 100%;
@@ -247,7 +250,6 @@ input:checked + .slider:before {
   margin: 0 1rem;
   background: transparent;
   position: relative;
-  color: #323232;
 }
 .home .content .categorias input[type="radio"]{
   opacity: 0;
@@ -851,7 +853,9 @@ input:checked + .slider:before {
   border: solid 1.5px #9e9e9e;
   color: #fff;
 }
-
+.home .content .categorias.dark-modeCat{
+  color: #9e9e9e;
+}
 
 /* CSS para responsividade das telas */
 /* media queries */
@@ -863,6 +867,8 @@ input:checked + .slider:before {
 @media (max-width: 1430px){
   .home .content{
     padding-top: 5%;
+    margin-top: 10%;
+    margin-left: -50px;
   } 
 }
 
@@ -873,9 +879,11 @@ input:checked + .slider:before {
   .header{
     padding: 3rem;
   }
-  
   section{
     padding: 3rem 2rem;
+  }
+  .home .content .text{
+    font-size: 3rem;
   }
   .results-filtros{
     margin-left: -2rem;
@@ -892,6 +900,10 @@ input:checked + .slider:before {
     max-width: 120px;
     max-height: 150px;
     border-radius: 20px;
+  }
+  .home .content {
+    max-width: 55%;
+    margin-left: 0;
   }
   .results-cards .card img{
     height: 70px;
@@ -915,15 +927,17 @@ input:checked + .slider:before {
   .header .navbar{
     margin-left: 0;
     flex-direction: column;
-    position: absolute;
     align-items: center;
-    top: 99%; left: 0; right: 0;
-    background: #aaa;
-    padding: 10px;
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    background: #fff;
+    box-shadow: -8px 6px 14px 0px rgba(0, 0, 0, 0.75);
+    position: absolute;
+    right: -100%;
+    top: 95px;
+    width: 50%;
   }
   .header .navbar.active{
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    right: 0;
+    padding-bottom: 10px;
   }
   .header.dark-mode .navbar{
     background: #000;
@@ -936,6 +950,10 @@ input:checked + .slider:before {
   }
   .header .navbar .space{
     display: none;
+  }
+  .home .content{
+    margin-top: 10%;
+    margin-left: 0;
   }
   .dev-box img{
     width: 75%;
@@ -966,7 +984,7 @@ input:checked + .slider:before {
   .home .content{
     max-width: 100%;
   }
-  .home .content h3{
+  .home .content .text{
     font-size: 2.6rem;
   } 
   .dev-box{
@@ -1034,6 +1052,9 @@ input:checked + .slider:before {
   .footer .credit{
     font-size: 1.5rem;
   } 
+  .home .content .text{
+    margin-top: 20%;
+  }
   .results{
     flex-direction: column;
   }
