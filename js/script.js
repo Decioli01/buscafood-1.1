@@ -14,3 +14,29 @@ window.onscroll = () =>{
    menuBtn.classList.remove('fa-times');
    navbar.classList.remove('active');
 }
+
+let darkModebtn = document.querySelector('#btnDarkMode')
+
+darkModebtn.onclick = () =>
+{
+   var element = document.body;
+   var textHome = document.querySelector('.text');
+   var input1 = document.querySelector('.search');
+   var input2 = document.querySelector('.location');
+   var header = document.querySelector('.header');
+          
+   header.classList.toggle("dark-mode")
+   textHome.classList.toggle("textDarkMode");
+   input1.classList.toggle("darkBox");
+   input2.classList.toggle("darkBox");
+   element.classList.toggle("dark-mode");
+
+   if (darkModebtn.checked){
+      document.querySelector('#logo').src = './images/LogoDark.svg';
+   }
+   else {
+      document.querySelector('#logo').src = './images/LogoLight.png';
+   }
+}
+
+

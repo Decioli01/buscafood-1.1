@@ -16,23 +16,27 @@
 <body>
     <!-- header section starts -->
     <header class="header">
+        <a href="index.html" class="logo"><img id="logo" src="./images/LogoLight.png" alt=""></a>
         <div id="menu-btn" class="fas fa-bars icons"></div>       
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="./contato.html">Contato</a>
             <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
-            <span class="space"></span>
             <a href="./app.html">Nosso App</a>
             <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
+            <label class="switch">
+                <input id="btnDarkMode" type="checkbox">
+                <span class="slider"></span>
+            </label>
         </nav>
-        <a href="index.html" class="logo"><img src="./images/Logo.svg" alt=""></a>
+        
     </header>
     <!-- header section ends -->
 
     <!-- home sections starts -->
     <section class="home" id="home">
         <div data-aos="fade-up" class="content">
-            <h3>Pessoas podem te decepcionar. <br>
+            <h3 class="text">Pessoas podem te decepcionar. <br>
                 Um lanche no precinho, <span style="color:#F0B212">NUNCA!!</span>
             </h3>
             <form action="./resultados.php" class="search-form" id="search">
@@ -87,5 +91,8 @@
       });
     </script>
     <script src="./js/script.js"></script>
+    <script>
+        
+      </script>
 </body>
 </html>
