@@ -99,6 +99,7 @@
                                 </div>
                                 <div class='card-info'>
                                     <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
+                                    <h3 style='color: #808080; text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;'>".$campo["estNome"]."</h3>
                                 </div>
                                 <div class='card-footer'>
                                     <span class='text-title'>R$".$campo["proPreco"]."</span>
