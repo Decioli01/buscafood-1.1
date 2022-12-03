@@ -35,16 +35,20 @@
     $consulta1 = mysqli_query($conn,$sql); 
     $campo1 = mysqli_fetch_array($consulta1);
 ?>
-    <header class="header">
-        <div id="menu-btn" class="fas fa-bars icons"></div>        
+    <header class="header" id="header-loja">
+        <a href="index.html" class="logo"><img id="logo" src="./images/LogoLight.png" alt=""></a>
+        <div id="menu-btn" class="fas fa-bars icons"></div>       
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="./contato.html">Contato</a>
-            <span class="space"></span>
+            <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
             <a href="./app.html">Nosso App</a>
             <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
+            <label class="switch">
+                <input id="btnDarkMode" type="checkbox">
+                <span class="slider"></span>
+            </label>
         </nav>
-        <a href="index.html" class="logo"><img src="./images/Logo.svg" alt=""></a>
     </header>
     <div class="loja-header">
         <div class="loja-info">
@@ -87,5 +91,6 @@
         </section>
     </div>
     <script src="./js/script.js"></script>
+    <script src="./js/darkMode.js"></script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 let darkModebtn = document.querySelector('#btnDarkMode')
-
+var headerLoja = document.querySelector('#header-loja');
+if (headerLoja){
+    headerLoja.style.backgroundColor = '#EBF4FA'; 
+}
+    
 darkModebtn.onclick = () =>
 {
    var element = document.body;
@@ -8,7 +12,10 @@ darkModebtn.onclick = () =>
    var input2 = document.querySelector('.location');
    var header = document.querySelector('.header');
    var categorias = document.querySelector('.categorias');
-   
+   var logoDelM = document.querySelector('#logoDelM');
+   var inputContato = document.querySelector('#tipo-contato');
+   var qrCode = document.querySelector('#qr-code'); 
+
    if (header){
         header.classList.toggle("dark-mode")
     }
@@ -26,14 +33,37 @@ darkModebtn.onclick = () =>
     }
    element.classList.toggle("dark-mode");
 
-   if (darkModebtn.checked){
+    if (headerLoja){
+        headerLoja.style.backgroundColor = '#000';
+    }
 
+    if (darkModebtn.checked){
       document.querySelector('#logo').src = './images/LogoDark.svg';
-      document.querySelector('#logoDelM').src = './images/DeliveryMuch LogoDark.svg';
+      if (logoDelM){
+        logoDelM.src = './images/DeliveryMuch LogoDark.svg';
+      }
+      if (inputContato){
+        inputContato.style.color = '#ddd';
+      }
+      if (qrCode){
+        qrCode.src = './images/codigo-qr.png';
+      }
+      
    }
-   else {
+    else {
       darkModebtn.checked = false;
       document.querySelector('#logo').src = './images/LogoLight.png';
-      document.querySelector('#logoDelM').src = './images/DeliveryMuch LogoLight.svg';
+      if (headerLoja){
+        headerLoja.style.backgroundColor = '#EBF4FA';
+      }
+      if (qrCode){
+        qrCode.src = './images/codigo-qr-light.png';
+      }
+      if (inputContato){
+        inputContato.style.color = '#323232';
+      }
+      if (logoDelM){
+        logoDelM.src = './images/DeliveryMuch LogoLight.svg';
+      }
    }
 }

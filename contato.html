@@ -12,16 +12,20 @@
     <title>BuscaFood® - Contate-nos!</title>
 </head>
 <body>
-    <header class="header">
-        <div id="menu-btn" class="fas fa-bars icons"></div>
+    <header class="header" id="header-loja">
+        <a href="index.html" class="logo"><img id="logo" src="./images/LogoLight.png" alt=""></a>
+        <div id="menu-btn" class="fas fa-bars icons"></div>       
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="./contato.html">Contato</a>
-            <span class="space"></span>
+            <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
             <a href="./app.html">Nosso App</a>
             <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
+            <label class="switch">
+                <input id="btnDarkMode" type="checkbox">
+                <span class="slider"></span>
+            </label>
         </nav>
-        <a href="index.html" class="logo"><img src="./images/Logo.svg" alt=""></a>
     </header>
     <section class="contact" id="contact">
         <div class="heading">
@@ -53,10 +57,10 @@
                 </div>
                 <form action="https://formspree.io/f/xknydnpv" method="post" id="form-contato">
                     <select data-aos="fade-up" data-aos-delay="100" class="box" name="tipo-contato" id="tipo-contato" form="form-contato" required >
-                        <option value="none" selected disabled hidden>Tipo de Contato</option>
-                        <option value="suporte">Suporte</option>
-                        <option value="comercial">Comercial</option>
-                        <option value="contato">Contato</option>
+                        <option class="tiposContato" value="none" selected disabled hidden>Tipo de Contato</option>
+                        <option class="tiposContato" value="suporte">Suporte</option>
+                        <option class="tiposContato" value="comercial">Comercial</option>
+                        <option class="tiposContato" value="contato">Contato</option>
                     </select>
                     <input data-aos="fade-up" data-aos-delay="150" type="text" placeholder="Nome" class="box" name="nome" required>
                     <input data-aos="fade-up" data-aos-delay="300" type="email" placeholder="E-mail" class="box" name="email" required>
@@ -79,5 +83,6 @@
       });
     </script>
     <script src="./js/script.js"></script>
+    <script src="./js/darkMode.js"></script>
 </body>
 </html>

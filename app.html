@@ -14,16 +14,20 @@
 
 <body>
   <header class="header">
+    <a href="index.html" class="logo"><img id="logo" src="./images/LogoLight.png" alt=""></a>
     <div id="menu-btn" class="fas fa-bars icons"></div>       
     <nav class="navbar">
         <a href="index.html">Home</a>
         <a href="./contato.html">Contato</a>
         <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
-        <span class="space"></span>
         <a href="./app.html">Nosso App</a>
         <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
+        <label class="switch">
+            <input id="btnDarkMode" type="checkbox">
+            <span class="slider"></span>
+        </label>
     </nav>
-    <a href="index.html" class="logo"><img src="./images/Logo.svg" alt=""></a>
+    
 </header>
 
   <main class="container-bg">
@@ -53,11 +57,13 @@
               </div>
             </a>
           </div>
-          <img class="qr-code" src="./images/codigo-qr.png" alt="codigo-qr">
+          <img class="qr-code" id="qr-code" src="./images/codigo-qr-light.png" alt="codigo-qr">
         </div>
       </div>
     </div>
   </main>
 </body>
-
 </html>
+
+<script src="./js/script.js"></script>
+<script src="./js/darkMode.js"></script>
