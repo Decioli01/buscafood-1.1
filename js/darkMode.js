@@ -1,7 +1,7 @@
 let darkModebtn = document.querySelector('#btnDarkMode')
 var headerLoja = document.querySelector('#header-loja');
 if (headerLoja){
-    headerLoja.style.backgroundColor = '#EBF4FA'; 
+    headerLoja.style.backgroundColor = '#f9f9f9'; 
 }
     
 darkModebtn.onclick = () =>
@@ -54,7 +54,7 @@ darkModebtn.onclick = () =>
       darkModebtn.checked = false;
       document.querySelector('#logo').src = './images/LogoLight.png';
       if (headerLoja){
-        headerLoja.style.backgroundColor = '#EBF4FA';
+        headerLoja.style.backgroundColor = '#f9f9f9';
       }
       if (qrCode){
         qrCode.src = './images/codigo-qr-light.png';
