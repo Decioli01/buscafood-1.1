@@ -26,7 +26,7 @@
             INNER JOIN estabelecimentos e ON e.estId = p.est_Id
             INNER JOIN cidades c ON c.cidId = e.cid_Id
             INNER JOIN categorias ct ON ct.catId = p.cat_Id
-            WHERE e.estId = $id_loja
+            WHERE e.estId = $id_loja 
             ORDER BY ct.catId, p.proPreco;";
 
     $consulta = mysqli_query($conn,$sql);
@@ -41,7 +41,6 @@
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="./contato.html">Contato</a>
-            <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
             <a href="./app.html">Nosso App</a>
             <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
             <label class="switch">

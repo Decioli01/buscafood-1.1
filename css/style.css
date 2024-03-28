@@ -247,6 +247,7 @@ input:checked + .slider:before {
 .home .content .categorias .categoria{
   height: 100%;
   width: 20%;
+  
   box-sizing: border-box;
   margin: 0 1rem;
   background: transparent;
