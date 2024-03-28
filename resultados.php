@@ -100,8 +100,14 @@
                 while($campo = mysqli_fetch_array($consulta)){               
                     echo "<a href='./produto.php?id=".$campo["proId"]."'>
                             <div class='card'>
-                                <div class='card-img'>
-                                    <img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>
+                                <div class='card-img'>";
+                                if ($campo["proImagem"] == NULL){
+                                    echo "<img src='./cadastro-em-etapas/images/produtos/semfoto.jpg'>";
+                                }
+                                else {
+                                    echo "<img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"].".jpg' alt=''>";
+                                }
+                                echo "
                                 </div>
                                 <div class='card-info'>
                                     <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>

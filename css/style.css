@@ -682,7 +682,7 @@ input:checked + .slider:before {
 }
 .card-img img{
   margin: 0 auto;
-  max-width: 200px;
+  /* max-width: 200px; */
   border-radius: 14px;
   width: 100%;
   height: 100px;
@@ -901,6 +901,11 @@ input:checked + .slider:before {
   .produto .produto-info .lanchonete-info.mobile{
     display: none;
   }
+  .results .results-cards .card {
+    max-width: 250px;
+    max-height: 230px;
+    border-radius: 20px;
+  }
 }
 @media (max-width: 1430px){
   .home .content{
@@ -926,7 +931,12 @@ input:checked + .slider:before {
   .results-filtros{
     margin-left: -2rem;
   }
-  .results-cards .card img{
+  .results .results-cards .card {
+    max-width: 120px;
+    max-height: 150px;
+    border-radius: 20px;
+  }
+  .results-cards .card img {
     height: 80px;
   }
   .card-footer{

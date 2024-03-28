@@ -59,13 +59,13 @@
                   <div class='desc-links'>
                       <h2>Peça já!</h2>
                       <div class='links'>";
-                      if ($lancheDetalhe["lnk_much"] <> NULL){
+                      if ($lancheDetalhe["lnk_much"] !== NULL){
                           echo "<a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img id='logoDelM' src='./images/DeliveryMuch LogoLight.svg' alt='Delivery Much'></a>";
                       }
-                      if ($lancheDetalhe["lnk_ifood"] <> NULL){
+                      if (isset($lancheDetalhe["lnk_ifood"]) && $lancheDetalhe["lnk_ifood"] !== NULL){
                           echo "<a href='".$lancheDetalhe['lnk_ifood']."' target='_blank'><img src='./images/ifood-43 1.svg' alt='iFood'></a>";
                       }
-                      if ($lancheDetalhe["lnk_aiqfome"] <> NULL){
+                      if ($lancheDetalhe["lnk_aiqfome"] !== NULL){
                           echo "<a href='".$lancheDetalhe['lnk_aiqfome']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>";
                       }
                   echo "</div>
@@ -95,7 +95,7 @@
                   </div>
               </div>
               <div class='produto-info'>
-                  <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
+                  <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"].".jpg' alt=''>
                   <div class='lanchonete-info cheia'>
                   <a href='./produtos_loja.php?id_loja=".$lancheDetalhe["estId"]."'>
                     <h2 class='nome-lanchonete'>".$lancheDetalhe["estNome"]."</h2>
