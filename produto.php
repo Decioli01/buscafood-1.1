@@ -95,7 +95,7 @@
                   </div>
               </div>
               <div class='produto-info'>
-                  <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"].".jpg' alt=''>
+                  <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
                   <div class='lanchonete-info cheia'>
                   <a href='./produtos_loja.php?id_loja=".$lancheDetalhe["estId"]."'>
                     <h2 class='nome-lanchonete'>".$lancheDetalhe["estNome"]."</h2>

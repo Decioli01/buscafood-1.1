@@ -2,7 +2,7 @@
     $host = "127.0.0.1";
     $usuario = "root";
     $senha = "";
-    $bd = "busca_food";
+    $bd = "busca_food_2";
 
     // $host = '10.67.22.216';
     // $usuario = 's221_tcc_g1_us';

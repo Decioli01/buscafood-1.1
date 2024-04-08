@@ -105,7 +105,7 @@
                                     echo "<img src='./cadastro-em-etapas/images/produtos/semfoto.jpg'>";
                                 }
                                 else {
-                                    echo "<img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"].".jpg' alt=''>";
+                                    echo "<img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>";
                                 }
                                 echo "
                                 </div>
