@@ -39,7 +39,12 @@
                 include("conexao.php");
 
                 // Realiza a busca no banco de dados, trazendo somente informações do produto em especifico
-                $detalhes = "SELECT * , date_format(p.proAtualizacao, '%d %b %Y') as dataAtualizacao FROM produtos p 
+                $detalhes = "SELECT * , date_format(p.proAtualizacao, '%d %b %Y') as dataAtualizacao, LEAST (
+                                COALESCE(NULLIF(p.preco_ifood, 0), 999999),
+                                COALESCE(NULLIF(p.preco_del_much, 0), 999999),
+                                COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
+                            ) as menorPreco
+                            FROM produtos p 
                             INNER JOIN tamanhos t ON t.tamId = p.tam_Id
                             INNER JOIN estabelecimentos e ON e.estId = p.est_Id
                             INNER JOIN cidades c ON c.cidId = e.cid_Id
@@ -53,20 +58,30 @@
                 while($lancheDetalhe = mysqli_fetch_array($resultadoDetalhes)){ 
                   echo "<div class='produto-desc'>
                   <h3>".$lancheDetalhe["proNome"]." (".$lancheDetalhe["tamNome"].")</h3>
-                  <p>".$lancheDetalhe["proDescricao"]."</p>
-                  <h1> R$".$lancheDetalhe["proPreco"]."</h1>
+                  <p>".$lancheDetalhe["proDescricao"].".</p>
+                  <p>A partir de</p>
+                  <h1> R$".$lancheDetalhe["menorPreco"]."</h1>
                   <h4> Atualizado em: ".$lancheDetalhe["dataAtualizacao"]."</h4>
                   <div class='desc-links'>
                       <h2>Peça já!</h2>
                       <div class='links'>";
                       if ($lancheDetalhe["lnk_much"] !== NULL){
-                          echo "<a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img id='logoDelM' src='./images/DeliveryMuch LogoLight.svg' alt='Delivery Much'></a>";
+                          echo "<div class='deliveryPreco'>    
+                                    <a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>
+                                    <p>R$".$lancheDetalhe["preco_del_much"]."</p>
+                                </div>";
                       }
                       if (isset($lancheDetalhe["lnk_ifood"]) && $lancheDetalhe["lnk_ifood"] !== NULL){
-                          echo "<a href='".$lancheDetalhe['lnk_ifood']."' target='_blank'><img src='./images/ifood-43 1.svg' alt='iFood'></a>";
+                          echo "<div class='deliveryPreco'>    
+                                    <a href='".$lancheDetalhe['lnk_ifood']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>
+                                    <p>R$".$lancheDetalhe["preco_ifood"]."</p>
+                                </div>";
                       }
                       if ($lancheDetalhe["lnk_aiqfome"] !== NULL){
-                          echo "<a href='".$lancheDetalhe['lnk_aiqfome']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>";
+                          echo "<div class='deliveryPreco'>    
+                                    <a href='".$lancheDetalhe['lnk_aiqfome']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>
+                                    <p>R$".$lancheDetalhe["preco_aiqfome"]."</p>
+                                </div>";
                       }
                   echo "</div>
                   </div>

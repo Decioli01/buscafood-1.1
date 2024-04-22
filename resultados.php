@@ -31,24 +31,44 @@
     // Realiza a verificação se o botão 'Filtrar' foi clicado, caso sim, realiza busca no banco informando o valor máximo passado pelo slide. Caso contrário, realiza a busca feita com as informações vindo da tela inicial;
     if(@$_REQUEST['btn-filtrar']){
         $filtro_preco = $_REQUEST['slide-preco'];
-        $sql = "SELECT p.proId, p.proImagem, p.proNome, p.proPreco, e.estNome, t.tamNome 
+        $sql = "SELECT p.proId, p.proImagem, p.proNome, 
+                LEAST (
+                        COALESCE(NULLIF(p.preco_ifood, 0), 999999),
+                        COALESCE(NULLIF(p.preco_del_much, 0), 999999),
+                        COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
+                    ) as menorPreco, 
+                    e.estNome, t.tamNome 
                 FROM produtos p
                 INNER JOIN tamanhos t ON p.tam_Id = t.tamId
                 INNER JOIN estabelecimentos e ON e.estId = p.est_Id
                 INNER JOIN cidades c ON c.cidId = e.cid_Id
                 INNER JOIN categorias ct ON ct.catId = p.cat_Id
-                WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') AND c.cidNome LIKE '%$local%' AND ct.catId = $categoria AND p.proPreco <= $filtro_preco
-                ORDER BY p.proPreco, p.proNome;";
+                WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') 
+                    AND c.cidNome LIKE '%$local%'  
+                    AND ct.catId = $categoria 
+                    AND LEAST (
+                        COALESCE(NULLIF(p.preco_ifood, 0), 999999),
+                        COALESCE(NULLIF(p.preco_del_much, 0), 999999),
+                        COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
+                    ) <= $filtro_preco
+                ORDER BY menorPreco, p.proNome;";
     }
     else{
-    $sql = "SELECT p.proId, p.proImagem, p.proNome, p.proPreco, e.estNome, t.tamNome 
+    $sql = "SELECT p.proId, p.proImagem, p.proNome, 
+            LEAST (
+                    COALESCE(NULLIF(p.preco_ifood, 0), 999999),
+                    COALESCE(NULLIF(p.preco_del_much, 0), 999999),
+                    COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
+                ) as menorPreco, 
+                e.estNome, t.tamNome 
             FROM produtos p
             INNER JOIN tamanhos t ON p.tam_Id = t.tamId
             INNER JOIN estabelecimentos e ON e.estId = p.est_Id
             INNER JOIN cidades c ON c.cidId = e.cid_Id
             INNER JOIN categorias ct ON ct.catId = p.cat_Id
-            WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') AND c.cidNome LIKE '%$local%' AND ct.catId = $categoria
-            ORDER BY p.proPreco, p.proNome;";
+            WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') 
+                AND c.cidNome LIKE '%$local%' AND ct.catId = $categoria
+            ORDER BY menorPreco, p.proNome;";
     }
     // Executa a consulta SQL de acordo com a condição
     $consulta = mysqli_query($conn,$sql);
@@ -114,7 +134,7 @@
                                     <h3 style='color: #808080; text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;'>".$campo["estNome"]."</h3>
                                 </div>
                                 <div class='card-footer'>
-                                    <span class='text-title'>R$".$campo["proPreco"]."</span>
+                                    <span class='text-title'>R$".$campo["menorPreco"]."</span>
                                 </div>
                             </div> 
                         </a>";

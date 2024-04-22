@@ -21,13 +21,13 @@
     include("conexao.php");
 
     // Realiza a busca no banco de dados, trazendo somente produtos da lanchonete em especifico
-    $sql = "SELECT * FROM produtos p 
+    $sql = "SELECT *, LEAST (COALESCE(NULLIF(p.preco_ifood, 0), 999999), COALESCE(NULLIF(p.preco_del_much, 0), 999999), COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)) as menorPreco FROM produtos p 
             INNER JOIN tamanhos t ON t.tamId = p.tam_Id
             INNER JOIN estabelecimentos e ON e.estId = p.est_Id
             INNER JOIN cidades c ON c.cidId = e.cid_Id
             INNER JOIN categorias ct ON ct.catId = p.cat_Id
             WHERE e.estId = $id_loja 
-            ORDER BY ct.catId, p.proPreco;";
+            ORDER BY ct.catId, menorPreco;";
 
     $consulta = mysqli_query($conn,$sql);
     $count = mysqli_num_rows($consulta);
@@ -78,7 +78,7 @@
                                         <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
                                     </div>
                                     <div class='card-footer'>
-                                        <span class='text-title'>R$".$campo["proPreco"]."</span>
+                                        <span class='text-title'>R$".$campo["menorPreco"]."</span>
                                     </div>
                                 </div> 
                             </a>";
