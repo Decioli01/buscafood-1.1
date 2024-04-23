@@ -14,7 +14,7 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 57%;
   overflow-x: hidden;
 }
 
@@ -724,7 +724,7 @@ input:checked + .slider:before {
 }
 .produto .conteudos{
   margin: 0 auto;
-  margin-top: 9rem;
+  margin-top: 10rem;
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -739,14 +739,14 @@ input:checked + .slider:before {
   text-align: center;
 }
 .produto .produto-desc h3{
-  font-size: 3.3rem;
+  font-size: 3rem;
   margin-bottom: 2rem;
 }
 .produto .produto-desc h4 {
   font-size: 2rem;
 }
 .produto .produto-desc P{
-  font-size: 2rem;
+  font-size: 1.7rem;
   margin-bottom: 2rem;
   text-transform: none;
 }
@@ -917,7 +917,7 @@ input:checked + .slider:before {
 
 @media (max-width: 1200px){
   html{
-    font-size: 55%;
+    font-size: 60%;
   }
   .header{
     padding: 3rem;
@@ -966,7 +966,7 @@ input:checked + .slider:before {
 
 @media (max-width: 991px){
   html{
-    font-size: 55%;
+    font-size: 45%;
   }
   .header{
     justify-content: space-between;
@@ -1090,7 +1090,7 @@ input:checked + .slider:before {
   }
   .produto .produto-info img{
     width: 90%;
-    height: 25rem;
+    height: 30rem;
   }
   .produto .produto-info .social-links{
     font-size: 3rem;
@@ -1150,7 +1150,7 @@ input:checked + .slider:before {
  
   .produto .conteudos{
     flex-direction: column-reverse;
-    margin-top: 330px;
+    margin-top: 20rem;
   }
   .produto .produto-header{
     justify-content: center;
@@ -1175,7 +1175,9 @@ input:checked + .slider:before {
     font-size: 2rem;
   }
   .produto .produto-info img{
-    margin-top: 70px;
+    margin-top: 350px;
+    width: 90%;
+    height: 20rem;
   }
   .loja-header .loja-info h1{
     font-size: 2rem;

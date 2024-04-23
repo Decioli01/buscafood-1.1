@@ -117,8 +117,9 @@
             }
             else{
                 // Percorre o array de resultados, imprimindo cada índice com suas informações em um card
-                while($campo = mysqli_fetch_array($consulta)){               
-                    echo "<a href='./produto.php?id=".$campo["proId"]."'>
+                while($campo = mysqli_fetch_array($consulta)){           
+                    $id_criptado = base64_encode($campo["proId"]);    
+                    echo "<a href='./produto.php?id=".$id_criptado."'>
                             <div class='card'>
                                 <div class='card-img'>";
                                 if ($campo["proImagem"] == NULL){

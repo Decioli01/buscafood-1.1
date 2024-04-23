@@ -35,7 +35,7 @@
         <div class="conteudos">
             <?php 
                 // Pega o ID da produto por meio da URL vindo do card clicado
-                $idProd = $_GET['id'];
+                $id_decriptado = base64_decode($_GET['id']);
                 include("conexao.php");
 
                 // Realiza a busca no banco de dados, trazendo somente informações do produto em especifico
@@ -48,7 +48,7 @@
                             INNER JOIN tamanhos t ON t.tamId = p.tam_Id
                             INNER JOIN estabelecimentos e ON e.estId = p.est_Id
                             INNER JOIN cidades c ON c.cidId = e.cid_Id
-                            where p.proId = $idProd";
+                            where p.proId = $id_decriptado";
 
                 $resultadoDetalhes = mysqli_query($conn, $detalhes);                
                 
@@ -56,6 +56,7 @@
                 // Há 2 divs imprimindo as mesmas informações, porém uma delas será exibida enquanto o sistema estiver sendo exibido em uma tela wide (lanchonete-info cheia) e a outra somente enquanto tela mobile (lanchonete-info mobile)
 
                 while($lancheDetalhe = mysqli_fetch_array($resultadoDetalhes)){ 
+                  $id_loja_criptado = base64_encode($lancheDetalhe["estId"]);
                   echo "<div class='produto-desc'>
                   <h3>".$lancheDetalhe["proNome"]." (".$lancheDetalhe["tamNome"].")</h3>
                   <p>".$lancheDetalhe["proDescricao"].".</p>
@@ -87,7 +88,7 @@
                   </div>
                   <div class='produto-info'>
                       <div class='lanchonete-info mobile'>
-                          <a href='./produtos_loja.php?id_loja=".$lancheDetalhe["estId"]."'>
+                          <a href='./produtos_loja.php?id_loja=".$id_loja_criptado."'>
                             <h2 class='nome-lanchonete'>".$lancheDetalhe["estNome"]."</h2>
                           </a>
                           <p class='end-lanchonete'>
@@ -112,7 +113,7 @@
               <div class='produto-info'>
                   <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
                   <div class='lanchonete-info cheia'>
-                  <a href='./produtos_loja.php?id_loja=".$lancheDetalhe["estId"]."'>
+                  <a href='./produtos_loja.php?id_loja=".$id_loja_criptado."'>
                     <h2 class='nome-lanchonete'>".$lancheDetalhe["estNome"]."</h2>
                   </a>
                         <p class='end-lanchonete'>

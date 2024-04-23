@@ -16,7 +16,8 @@
 <body>
 <?php
     // Pega o ID da loja por meio da URL vindo do link clicado
-    $id_loja = $_GET['id_loja']; 
+    $id_loja = base64_decode($_GET['id_loja']);
+ 
 
     include("conexao.php");
 
@@ -69,7 +70,8 @@
                     else{
                     // Percorre o array de resultados, imprimindo cada índice com suas informações em um card
                         while($campo = mysqli_fetch_array($consulta)){
-                            echo "<a href='./produto.php?id=".$campo["proId"]."'>
+                            $id_criptado = base64_encode($campo["proId"]);  
+                            echo "<a href='./produto.php?id=".$id_criptado."'>
                                 <div class='card'>
                                     <div class='card-img'>
                                         <img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>
