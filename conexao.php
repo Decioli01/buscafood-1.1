@@ -1,7 +1,7 @@
 <?php 
     $host = "127.0.0.1";
-    $usuario = "root";
-    $senha = "";
+    $usuario = "user_comum";
+    $senha = "usuario_comum123";
     $bd = "busca_food_2";
 
     // $host = '10.67.22.216';

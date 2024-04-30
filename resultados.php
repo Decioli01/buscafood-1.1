@@ -21,16 +21,15 @@
 </head>
 <body>
 <?php 
-    // Faz a requisição das informações que foram preenchidas na tela inicial e guarda em variaveis
-    $prato = $_REQUEST['prato'];
-    $local = $_REQUEST['location'];
-    $categoria = $_REQUEST['categorias'];
-
     include("conexao.php");
-    
+    // Faz a requisição das informações que foram preenchidas na tela inicial e guarda em variáveis
+    $prato = mysqli_real_escape_string($conn, $_REQUEST['prato']);
+    $local = mysqli_real_escape_string($conn, $_REQUEST['location']);
+    $categoria = mysqli_real_escape_string($conn, $_REQUEST['categorias']);
+      
     // Realiza a verificação se o botão 'Filtrar' foi clicado, caso sim, realiza busca no banco informando o valor máximo passado pelo slide. Caso contrário, realiza a busca feita com as informações vindo da tela inicial;
     if(@$_REQUEST['btn-filtrar']){
-        $filtro_preco = $_REQUEST['slide-preco'];
+        $filtro_preco = mysqli_real_escape_string($conn, $_REQUEST['slide-preco']);
         $sql = "SELECT p.proId, p.proImagem, p.proNome, 
                 LEAST (
                         COALESCE(NULLIF(p.preco_ifood, 0), 999999),
@@ -73,7 +72,7 @@
     // Executa a consulta SQL de acordo com a condição
     $consulta = mysqli_query($conn,$sql);
 
-    // Guarda a quantidade de itens encontrados na busca em uma variavel
+    // Guarda a quantidade de itens encontrados na busca em uma variável
     $count = mysqli_num_rows($consulta);
 
     echo "<div style='display: flex; justify-content: space-between; align-items: center; padding-top: 20px;'>
