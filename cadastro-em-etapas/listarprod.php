@@ -20,42 +20,49 @@
         if(!empty($_GET['search'])){
             $data = $_GET['search'];
                     //realiza o select com o que foi inserido no campo de busca
-            $sql = "SELECT p.proId, p.proNome, p.proPreco, t.tamNome, ct.catNome, p.proDescricao, 
-            date_format(p.proAtualizacao, '%d  %m. %Y') as dataAtualizacao, p.proImagem FROM produtos p
-                INNER JOIN estabelecimentos e
-                ON e.estId = p.est_Id
-                INNER JOIN tamanhos t
-                ON t.tamId = p.tam_Id
-                INNER JOIN categorias ct
-                ON ct.catId = p.cat_Id
-                WHERE p.est_Id = '$id_estab'  
-                AND (p.proNome LIKE '%$data%' or p.proDescricao LIKE '%$data%') 
+            $sql = "SELECT *,  date_format(p.proAtualizacao, '%d / %m / %Y') as dataAtualizacao,
+            LEAST (
+                    COALESCE(NULLIF(p.preco_ifood, 0), 999999),
+                    COALESCE(NULLIF(p.preco_del_much, 0), 999999),
+                    COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
+                ) as menorPreco, 
+                e.estNome, t.tamNome 
+                FROM produtos p
+                INNER JOIN tamanhos t ON p.tam_Id = t.tamId
+                INNER JOIN estabelecimentos e ON e.estId = p.est_Id
+                INNER JOIN cidades c ON c.cidId = e.cid_Id
+                INNER JOIN categorias ct ON ct.catId = p.cat_Id
+                WHERE p.est_Id = '$id_estab' 
+                    AND (p.proNome LIKE '%$data%' or p.proDescricao LIKE '%$data%') 
                 ORDER BY cat_Id, proNome ASC, tam_Id asc";
                     //realiza o select trazendo o nome e a logo do estabelecimento
             $sql1 = "SELECT estNome, estLogo FROM estabelecimentos WHERE estId = '$id_estab'";
         }
-        else{
-                    //realiza o select dos produtos assim que o usuario loga
-            $sql = "SELECT p.proId, p.proNome, p.proPreco, t.tamNome, ct.catNome, p.proDescricao, 
-            date_format(p.proAtualizacao, '%d  %b.  %Y') as dataAtualizacao, p.proImagem FROM produtos p
-                INNER JOIN estabelecimentos e
-                ON e.estId = p.est_Id
-                INNER JOIN tamanhos t
-                ON t.tamId = p.tam_Id
-                INNER JOIN categorias ct
-                ON ct.catId = p.cat_Id
-                WHERE p.est_Id = ".$id_estab."
-                ORDER BY cat_Id, proNome ASC, tam_Id asc";
+        else{//realiza o select dos produtos assim que o usuario loga
+            $sql = "SELECT *,  date_format(p.proAtualizacao, '%d  %m. %Y') as dataAtualizacao,
+            LEAST (
+                    COALESCE(NULLIF(p.preco_ifood, 0), 999999),
+                    COALESCE(NULLIF(p.preco_del_much, 0), 999999),
+                    COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
+                ) as menorPreco, 
+                e.estNome, t.tamNome 
+            FROM produtos p
+            INNER JOIN tamanhos t ON p.tam_Id = t.tamId
+            INNER JOIN estabelecimentos e ON e.estId = p.est_Id
+            INNER JOIN cidades c ON c.cidId = e.cid_Id
+            INNER JOIN categorias ct ON ct.catId = p.cat_Id
+            WHERE p.est_Id = '$id_estab' 
+            ORDER BY cat_Id, proNome ASC, tam_Id asc";
                 //realiza o select trazendo o nome e a logo do estabelecimento
             $sql1 = "SELECT estNome, estLogo FROM estabelecimentos WHERE estId = '$id_estab'";
 
         }
-
         $result = mysqli_query($conn, $sql);
+        if (!$result) {
+    		die('Erro ao executar a consulta: ' . mysqli_error($conn));}
 
         $result1 = mysqli_query($conn,$sql1);
         $campo1 = mysqli_fetch_assoc($result1);
-
     }
 
 ?>
@@ -140,7 +147,7 @@
                                    '<input type="hidden" id="produto" value="'.$user_data['proId'].'">';
                                     "</td>";
                                 echo "<td class='tamanhoMax''><p>".$user_data['proNome']."</p></td>";
-                                echo "<td>R$ ".$user_data['proPreco']."</td>";
+                                echo "<td>R$ ".$user_data['menorPreco']."</td>";
                                 echo "<td>".$user_data['tamNome']."</td>";
                                 echo "<td>".$user_data['catNome']."</td>";
                                 echo "<td class='tamanhoMax';'><p>".$user_data['proDescricao']."</p></td>";

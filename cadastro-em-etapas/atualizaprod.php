@@ -111,13 +111,13 @@
                                 </div>
         
                                 <div class="radio-input">
-                                    <input type="radio" id="porcao" name="cat_Id" value="3" <?php echo ($cat_Id == '3') ? 'checked' : ''?> required>
-                                    <label for="porcao">Porção</label>
+                                    <input type="radio" id="pizza" name="cat_Id" value="3" <?php echo ($cat_Id == '3') ? 'checked' : ''?> required>
+                                    <label for="pizza">Pizza</label>
                                 </div>
 
                                 <div class="radio-input">
-                                    <input type="radio" id="pizza" name="cat_Id" value="4" <?php echo ($cat_Id == '4') ? 'checked' : ''?> required>
-                                    <label for="pizza">Pizza</label>
+                                    <input type="radio" id="porcao" name="cat_Id" value="4" <?php echo ($cat_Id == '4') ? 'checked' : ''?> required>
+                                    <label for="porcao">Porção</label>
                                 </div>
                             </div>
                     </div>

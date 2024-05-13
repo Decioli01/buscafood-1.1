@@ -23,7 +23,7 @@
             <a href="./contato.html">Contato</a>
             <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
             <a href="./app.html">Nosso App</a>
-            <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
+            <a href="./cadastro-em-etapas/index.html" target="_blank" class="btn" id="login">Empresa</a>
             <label class="switch">
                 <input id="btnDarkMode" type="checkbox">
                 <span class="slider"></span>
@@ -68,13 +68,13 @@
                       <div class='links'>";
                       if ($lancheDetalhe["lnk_much"] !== NULL){
                           echo "<div class='deliveryPreco'>    
-                                    <a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>
+                                    <a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img src='./images/DeliveryMuch LogoLight.svg' alt='AiQFome'></a>
                                     <p>R$".$lancheDetalhe["preco_del_much"]."</p>
                                 </div>";
                       }
-                      if (isset($lancheDetalhe["lnk_ifood"]) && $lancheDetalhe["lnk_ifood"] !== NULL){
+                      if ($lancheDetalhe["lnk_ifood"] !== NULL){
                           echo "<div class='deliveryPreco'>    
-                                    <a href='".$lancheDetalhe['lnk_ifood']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>
+                                    <a href='".$lancheDetalhe['lnk_ifood']."' target='_blank'><img src='./images/ifood-43 1.svg' alt='AiQFome'></a>
                                     <p>R$".$lancheDetalhe["preco_ifood"]."</p>
                                 </div>";
                       }
@@ -93,8 +93,8 @@
                           </a>
                           <p class='end-lanchonete'>
                               ".$lancheDetalhe["estEndereco"]."<br>"
-                              .$lancheDetalhe["cidNome"].", ".$lancheDetalhe["ufSigla"]."<br>"
-                              .$lancheDetalhe["estTelefone"]."
+                              .$lancheDetalhe["cidNome"].", ".$lancheDetalhe["ufSigla"]."<br>
+                              
                           </p>
                           <div class='social-links'>";
                             if ($lancheDetalhe["estWhatsapp"] <> NULL){

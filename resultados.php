@@ -71,7 +71,8 @@
     }
     // Executa a consulta SQL de acordo com a condição
     $consulta = mysqli_query($conn,$sql);
-
+    if (!$consulta) {
+        die('Erro ao executar a consulta: '. mysqli_error($conn));}
     // Guarda a quantidade de itens encontrados na busca em uma variável
     $count = mysqli_num_rows($consulta);
 
@@ -134,7 +135,8 @@
                                     <h3 style='color: #808080; text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;'>".$campo["estNome"]."</h3>
                                 </div>
                                 <div class='card-footer'>
-                                    <span class='text-title'>R$".$campo["menorPreco"]."</span>
+                                    
+                                    <span class='text-title'>A partir de <br>R$".$campo["menorPreco"]."</span>
                                 </div>
                             </div> 
                         </a>";
