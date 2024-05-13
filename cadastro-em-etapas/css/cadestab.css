@@ -20,6 +20,9 @@ body {
   padding: 0;
   overflow-y: hidden;
 }
+input[type="text"], option, select, input[type="number"]{
+  font-size: 20px !important;
+}
 
 .form-wizard .form-wizard-header header div#logout{
   display: block;
@@ -242,6 +245,7 @@ body {
   box-shadow: none;
 }
 
+
 .form-wizard .form-group {
   position: relative;
   margin: 30px 0;
@@ -335,9 +339,7 @@ body {
   transform: translateY(-50%);
   cursor: pointer;
 }
-input[type="text"], option, select, input[type="number"]{
-  font-size: 20px;
-}
+
 
 @keyframes click-radio-wave {
   0% {

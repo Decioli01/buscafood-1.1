@@ -50,7 +50,7 @@
             </div>  
 
             <div class="form">
-                <form action="./acoes/saveEdit.php?id_prod=<?php echo $id_prod?>" method="POST">
+                <form action="./acoes/atualizaProd.php?id_prod=<?php echo $id_prod?>" method="POST">
             
                     <div class="form-header">
                         <div class="title">
