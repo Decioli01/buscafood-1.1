@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -118,17 +118,17 @@
             else{
                 // Percorre o array de resultados, imprimindo cada índice com suas informações em um card
                 while($campo = mysqli_fetch_array($consulta)){           
-                    $id_criptado = base64_encode($campo["proId"]);    
+                    $id_criptado = base64_encode($campo["proId"]);
+                    
+                    $nota = "SELECT ROUND(AVG(nota_avaliada),1) as nota_media, COUNT(nota_avaliada) as total_notas FROM avaliacao WHERE id_prod = '".$campo['proId']."';";
+                    $nota_media = mysqli_fetch_array(mysqli_query($conn, $nota));
+                
                     echo "<a href='./produto.php?id=".$id_criptado."'>
                             <div class='card'>
+                            <p id='nota_media'>".$nota_media["nota_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
                                 <div class='card-img'>";
-                                if ($campo["proImagem"] == NULL){
-                                    echo "<img src='./cadastro-em-etapas/images/produtos/semfoto.jpg'>";
-                                }
-                                else {
-                                    echo "<img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>";
-                                }
-                                echo "
+                    echo "<img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>";
+                    echo "
                                 </div>
                                 <div class='card-info'>
                                     <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
@@ -140,7 +140,8 @@
                                 </div>
                             </div> 
                         </a>";
-                    } 
+                } 
+                
                 }           
             mysqli_close($conn);
         ?>            

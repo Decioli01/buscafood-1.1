@@ -14,5 +14,13 @@ window.onscroll = () =>{
    menuBtn.classList.remove('fa-times');
    navbar.classList.remove('active');
 }
+//verifica se o valor da avaliação é igual a zero ou não
+function avaliacao() {
+   let estrelas = document.querySelector('input[name=estrela]:checked').value;
+   let estrelas_mobile = document.querySelector('input[name=estrela-mobile]:checked').value;
 
-
+   if (estrelas === '' && estrelas_mobile === '') {
+      alert('Necessário selecionar pelo menos uma estrela!');
+  }
+  
+}
