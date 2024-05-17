@@ -13,11 +13,6 @@
 <link rel="stylesheet" href="./css/style.css">
 
 <title>Resultado</title>
-<script>
-    function updateTextInput(val) {
-   document.getElementById('textInput').value=val; 
-}
-</script>
 </head>
 <body>
 <?php 
@@ -30,7 +25,7 @@
     // Realiza a verificação se o botão 'Filtrar' foi clicado, caso sim, realiza busca no banco informando o valor máximo passado pelo slide. Caso contrário, realiza a busca feita com as informações vindo da tela inicial;
     if(@$_REQUEST['btn-filtrar']){
         $filtro_preco = mysqli_real_escape_string($conn, $_REQUEST['slide-preco']);
-        $sql = "SELECT p.proId, p.proImagem, p.proNome, 
+        $sqlSelect = "SELECT p.proId, p.proImagem, p.proNome, 
                 LEAST (
                         COALESCE(NULLIF(p.preco_ifood, 0), 999999),
                         COALESCE(NULLIF(p.preco_del_much, 0), 999999),
@@ -41,36 +36,42 @@
                 INNER JOIN tamanhos t ON p.tam_Id = t.tamId
                 INNER JOIN estabelecimentos e ON e.estId = p.est_Id
                 INNER JOIN cidades c ON c.cidId = e.cid_Id
-                INNER JOIN categorias ct ON ct.catId = p.cat_Id
-                WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') 
+                INNER JOIN categorias ct ON ct.catId = p.cat_Id";
+        $sqlWhere = " WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') 
                     AND c.cidNome LIKE '%$local%'  
                     AND ct.catId = $categoria 
                     AND LEAST (
                         COALESCE(NULLIF(p.preco_ifood, 0), 999999),
                         COALESCE(NULLIF(p.preco_del_much, 0), 999999),
                         COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
-                    ) <= $filtro_preco
-                ORDER BY menorPreco, p.proNome;";
+                    ) <= $filtro_preco";
+        $sqlOrder = " ORDER BY menorPreco, p.proNome;";
+        if (!empty(mysqli_real_escape_string($conn, $_REQUEST['tamanho']))){
+            $tamanho = mysqli_real_escape_string($conn, $_REQUEST['tamanho']);
+            $sqlWhere = $sqlWhere." AND tam_id = $tamanho";
+        }
     }
     else{
-    $sql = "SELECT p.proId, p.proImagem, p.proNome, 
-            LEAST (
-                    COALESCE(NULLIF(p.preco_ifood, 0), 999999),
-                    COALESCE(NULLIF(p.preco_del_much, 0), 999999),
-                    COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
-                ) as menorPreco, 
-                e.estNome, t.tamNome 
-            FROM produtos p
-            INNER JOIN tamanhos t ON p.tam_Id = t.tamId
-            INNER JOIN estabelecimentos e ON e.estId = p.est_Id
-            INNER JOIN cidades c ON c.cidId = e.cid_Id
-            INNER JOIN categorias ct ON ct.catId = p.cat_Id
-            WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') 
-                AND c.cidNome LIKE '%$local%' AND ct.catId = $categoria
-            ORDER BY menorPreco, p.proNome;";
+        $sqlSelect = "SELECT p.proId, p.proImagem, p.proNome, 
+                LEAST (
+                        COALESCE(NULLIF(p.preco_ifood, 0), 999999),
+                        COALESCE(NULLIF(p.preco_del_much, 0), 999999),
+                        COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
+                    ) as menorPreco, 
+                    e.estNome, t.tamNome 
+                FROM produtos p
+                INNER JOIN tamanhos t ON p.tam_Id = t.tamId
+                INNER JOIN estabelecimentos e ON e.estId = p.est_Id
+                INNER JOIN cidades c ON c.cidId = e.cid_Id
+                INNER JOIN categorias ct ON ct.catId = p.cat_Id";
+        $sqlWhere = " WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') 
+        AND c.cidNome LIKE '%$local%' AND ct.catId = $categoria";        
+        $sqlOrder = " ORDER BY menorPreco, p.proNome;";
     }
+    $sqlCompleto = $sqlSelect . $sqlWhere . $sqlOrder;
     // Executa a consulta SQL de acordo com a condição
-    $consulta = mysqli_query($conn,$sql);
+    $consulta = mysqli_query($conn, $sqlCompleto);
+
     if (!$consulta) {
         die('Erro ao executar a consulta: '. mysqli_error($conn));}
     // Guarda a quantidade de itens encontrados na busca em uma variável
@@ -84,27 +85,50 @@
             </label>
             </div>";  
     // Mostra a quantidade de itens encontrados com a busca
-    echo "<h1 style='margin-top: 1rem; text-align: center;'>Exibindo $count resultados para '$prato' em '$local'</h1>";
+    echo "<h1 style='padding: 10px; margin-top: 1rem; text-align: center;'>Exibindo $count resultados para '$prato' em '$local'</h1>";
 ?>
 <section class="results">
     <div class="results-filtros">
-        <h3>Filtros</h3>
-        <!-- Guarda as informações dos campos de busca vindo da tela inicial para quando o botão 'Filtrar' for clicado não forem perdidas -->
-        <?php echo '<form action="./resultados.php?prato='.$prato.'&location='.$local.'&categorias='.$categoria.'">
-            <input type="hidden" name="prato" value='.$prato.'> 
-            <input type="hidden" name="location" value='.$local.'> 
-            <input type="hidden" name="categorias" value='.$categoria.'>' 
-        ?>
-            <div class="results-slide">
-                <h3>Valor Máximo</h3>
-                <input type="range" min="10" max="100" step="10.00" value="<?php echo $filtro_preco?>" name="slide-preco">
-                <div class="results-slide-numbers">
-                    <h4>R$10,00</h4>
-                    <h4>R$100,00</h4>
+        <div id="btn-filtros">
+            <i class="fa-solid fa-filter"></i> Filtros
+        </div>
+        <div class="filtros">
+            <h3>Filtros</h3>
+            <!-- Guarda as informações dos campos de busca vindo da tela inicial para quando o botão 'Filtrar' for clicado não forem perdidas -->
+            <?php echo '<form action="./resultados.php" method="post">
+                <input type="hidden" name="prato" value='.$prato.'> 
+                <input type="hidden" name="location" value='.$local.'> 
+                <input type="hidden" name="categorias" value='.$categoria.'>' 
+            ?>
+                <div class="results-slide">
+                    <h3>Valor Máximo</h3>
+                    <input type="range" min="10" max="100" step="10.00" value="<?php echo $filtro_preco?>" name="slide-preco">
+                    <div class="results-slide-numbers">
+                        <h4>R$10,00</h4>
+                        <h4>R$100,00</h4>
+                    </div>
                 </div>
-                <input type="submit" name="btn-filtrar" class="btn" value="Filtrar" style="margin: 1.5rem; align-self: center; padding: 1rem;">
-                </form>
-            </div> 
+                <div class="filtro-tamanhos">
+                    <h3 style="margin-top: 20px;">Tamanhos</h3>
+                    <div class="inputsTamanhos">
+                        <input type="radio" name="tamanho" id="tam_0" value="" checked style="display: none;">
+                        <div class="input">
+                            <input type="radio" name="tamanho" id="tam_P" value="1">
+                            <label for="tam_P">P</label>
+                        </div>
+                        <div class="input">
+                            <input type="radio" name="tamanho" id="tam_M" value="2">
+                            <label for="tam_M">M</label>
+                        </div>
+                        <div class="input">
+                            <input type="radio" name="tamanho" id="tam_G" value="3">
+                            <label for="tam_G">G</label>
+                        </div>
+                    </div>
+                </div> 
+                <input type="submit" name="btn-filtrar" class="btn" value="Filtrar" style="margin: 1.5rem; align-self: center; width: 100px; padding: .5rem;">
+            </form>
+        </div>   
     </div>
     <div class="results-cards">
         <?php
@@ -147,7 +171,8 @@
         ?>            
     </div>
 </section> 
-<script src="./js/darkMode.js"></script>
+    <script src="./js/darkMode.js"></script>
+    <script src="./js/scriptFiltros.js"></script>
 </body>
 </html>
 

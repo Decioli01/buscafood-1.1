@@ -7,7 +7,6 @@ menuBtn.onclick = () =>{
    menuBtn.classList.toggle('fa-times');
    navbar.classList.toggle('active');
 }
-
 // Ao rolar a tela, o menu se encolhe e troca o icone 'X' pelo icone de 'menu-hamburguer';
 // Só ocorre quando está em dispositivo mobile;
 window.onscroll = () =>{

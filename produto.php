@@ -34,10 +34,10 @@
     <section class="produto">
         <div class="conteudos">
             <?php 
-                // Pega o ID da produto por meio da URL vindo do card clicado
-                $id_decriptado = base64_decode($_GET['id']);
                 include("conexao.php");
-
+                // Pega o ID da produto por meio da URL vindo do card clicado
+                $id_decriptado = mysqli_real_escape_string($conn, base64_decode($_GET['id']));
+                
                 // Realiza a busca no banco de dados, trazendo somente informações do produto em especifico
                 $detalhes = "SELECT * , date_format(p.proAtualizacao, '%d %b %Y') as dataAtualizacao, LEAST (
                                 COALESCE(NULLIF(p.preco_ifood, 0), 999999),
