@@ -52,7 +52,7 @@
 
                 $resultadoDetalhes = mysqli_query($conn, $detalhes);                
                 
-                $nota = "SELECT ROUND(AVG(nota_avaliada),1) as nota_media, COUNT(nota_avaliada) as total_notas FROM avaliacao WHERE id_prod = $id_decriptado;";
+                $nota = "SELECT COUNT(nota_avaliada) as total_notas FROM avaliacao WHERE id_prod = $id_decriptado;";
                 $nota_media = mysqli_fetch_array(mysqli_query($conn, $nota));
 
                 // Percorre o array de resultados, imprimindo as informações do produto nos devidos lugares
@@ -61,7 +61,7 @@
                 while($lancheDetalhe = mysqli_fetch_array($resultadoDetalhes)){ 
                   $id_loja_criptado = base64_encode($lancheDetalhe["estId"]);
                   echo "<div class='produto-desc'>
-                  <p id='nota_media'>".$nota_media["nota_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
+                  <p id='nota_media'>".$lancheDetalhe["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
                   <h3>".$lancheDetalhe["proNome"]." (".$lancheDetalhe["tamNome"].")</h3>
                   <p id='desc-prod'>".$lancheDetalhe["proDescricao"].".</p>
                   <p>A partir de</p>
@@ -142,7 +142,7 @@
                   </div>
               </div>
               <div class='produto-info'>
-                  <p id='nota_media'>".$nota_media["nota_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
+                  <p id='nota_media'>".$lancheDetalhe["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
                   <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
                   <div class='lanchonete-info cheia'>";
                   echo 

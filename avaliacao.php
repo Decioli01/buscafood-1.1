@@ -6,7 +6,7 @@
     if (isset($_POST['estrela'])){
         if (!empty($_POST['estrela'])) {
             $nota = $_POST['estrela'];
-            $insert_avaliacao = "INSERT INTO avaliacao (nota_avaliada, data_avaliacao, id_prod) VALUES ($nota, NOW(), $id_decriptado)";
+            $insert_avaliacao = "CALL media_nota($nota, $id_decriptado)";
             $executa_insert = mysqli_query($conn, $insert_avaliacao);
             if ($executa_insert) {
                 ?>
@@ -30,7 +30,7 @@
     elseif (isset($_POST['estrela-mobile'])){
         if (!empty($_POST['estrela-mobile'])) {
             $nota_mobile = $_POST['estrela-mobile'];
-            $insert_avaliacao = "INSERT INTO avaliacao (nota_avaliada, data_avaliacao, id_prod) VALUES ($nota_mobile, NOW(), $id_decriptado)";
+            $insert_avaliacao = "CALL media_nota($nota_mobile, $id_decriptado)";
             $executa_insert = mysqli_query($conn, $insert_avaliacao);
             if ($executa_insert) {
                 ?>

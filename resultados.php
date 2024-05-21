@@ -25,7 +25,7 @@
     // Realiza a verificação se o botão 'Filtrar' foi clicado, caso sim, realiza busca no banco informando o valor máximo passado pelo slide. Caso contrário, realiza a busca feita com as informações vindo da tela inicial;
     if(@$_REQUEST['btn-filtrar']){
         $filtro_preco = mysqli_real_escape_string($conn, $_REQUEST['slide-preco']);
-        $sqlSelect = "SELECT p.proId, p.proImagem, p.proNome, 
+        $sqlSelect = "SELECT p.proId, p.proImagem, p.proNome, p.avaliacao_media,
                 LEAST (
                         COALESCE(NULLIF(p.preco_ifood, 0), 999999),
                         COALESCE(NULLIF(p.preco_del_much, 0), 999999),
@@ -50,9 +50,18 @@
             $tamanho = mysqli_real_escape_string($conn, $_REQUEST['tamanho']);
             $sqlWhere = $sqlWhere." AND tam_id = $tamanho";
         }
+        if(!empty(mysqli_real_escape_string($conn, $_REQUEST['ordem']))){
+            $ordenacao = mysqli_real_escape_string($conn, $_REQUEST['ordem']);
+            if ($ordenacao == 1){
+                $sqlOrder = " ORDER BY menorPreco, p.proNome;";
+            }
+            else if ($ordenacao == 2){
+                $sqlOrder = " ORDER BY avaliacao_media desc, menorPreco, p.proNome;";
+            }
+        }
     }
     else{
-        $sqlSelect = "SELECT p.proId, p.proImagem, p.proNome, 
+        $sqlSelect = "SELECT p.proId, p.proImagem, p.proNome, p.avaliacao_media,
                 LEAST (
                         COALESCE(NULLIF(p.preco_ifood, 0), 999999),
                         COALESCE(NULLIF(p.preco_del_much, 0), 999999),
@@ -125,6 +134,20 @@
                             <label for="tam_G">G</label>
                         </div>
                     </div>
+                </div>
+                <div class="filtro-ordem">
+                    <h3 style="margin-top: 20px;">Ordem</h3>
+                    <div class="inputsOrdem">
+                        <input type="radio" name="ordem" id="ord_0" value="" checked style="display: none;">
+                        <div class="input">
+                            <input type="radio" name="ordem" id="ord_P" value="1">
+                            <label for="ord_P">Preço</label>
+                        </div>
+                        <div class="input">
+                            <input type="radio" name="ordem" id="ord_A" value="2">
+                            <label for="ord_A">Avaliação</label>
+                        </div>
+                    </div>
                 </div> 
                 <input type="submit" name="btn-filtrar" class="btn" value="Filtrar" style="margin: 1.5rem; align-self: center; width: 100px; padding: .5rem;">
             </form>
@@ -144,12 +167,12 @@
                 while($campo = mysqli_fetch_array($consulta)){           
                     $id_criptado = base64_encode($campo["proId"]);
                     
-                    $nota = "SELECT ROUND(AVG(nota_avaliada),1) as nota_media, COUNT(nota_avaliada) as total_notas FROM avaliacao WHERE id_prod = '".$campo['proId']."';";
+                    $nota = "SELECT COUNT(nota_avaliada) as total_notas FROM avaliacao WHERE id_prod = '".$campo['proId']."';";
                     $nota_media = mysqli_fetch_array(mysqli_query($conn, $nota));
                 
                     echo "<a href='./produto.php?id=".$id_criptado."'>
                             <div class='card'>
-                            <p id='nota_media'>".$nota_media["nota_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
+                            <p id='nota_media'>".$campo["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
                                 <div class='card-img'>";
                     echo "<img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>";
                     echo "
