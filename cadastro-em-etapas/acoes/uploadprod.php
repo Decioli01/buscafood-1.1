@@ -1,12 +1,12 @@
 <?php
 	session_start();
 
-	if( empty($_FILES['proImagem']) ){
+	if( empty($_FILES['prodImg']) ){
 	 //se nao houver fotos na interface
-		$proImagem = null;
+		$proImagem = "semfoto.jpg";
 	}
 	else{ 
-		$proImagem = $_FILES['proImagem']; //sennao, pega a foto e joga na variavel
+		$proImagem = $_FILES['prodImg']; //sennao, pega a foto e joga na variavel
 	}
 
 	if(!empty($proImagem["tmp_name"])) {

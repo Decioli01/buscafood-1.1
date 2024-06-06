@@ -27,6 +27,13 @@
                     ORDER BY e.estNome";
                     //realiza o select trazendo o nome e a logo do estabelecimento
         }
+        if (empty($_GET['cidade'])){
+            $data = $_GET['busca'];
+            $sql = "SELECT * FROM estabelecimentos e
+                    INNER JOIN cidades c
+                    ON c.cidId = e.cid_Id
+                    WHERE e.estNome LIKE '%$data%'";
+        }
         else{
                     //realiza o select dos produtos assim que o usuario loga
             $sql = "SELECT * FROM estabelecimentos e
@@ -54,7 +61,7 @@
                 <input type="text" id="campo-busca" name="texto-busca" placeholder="Buscar por estabelecimento...">
 
                 <select name="cidade" id="location">
-                    <option value="label" selected hidden disabled>Cidade...</option>
+                    <option value="" selected hidden disabled>Cidade...</option>
                     <option value="1">Tupã</option>
                 </select>
 

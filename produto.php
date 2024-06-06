@@ -70,19 +70,19 @@
                   <div class='desc-links'>
                       <h2>Peça já!</h2>
                       <div class='links'>";
-                      if ($lancheDetalhe["lnk_much"] !== NULL){
+                      if (!empty($lancheDetalhe["lnk_much"]) && $lancheDetalhe["preco_del_much"] != 0.00){
                           echo "<div class='deliveryPreco'>    
                                     <a href='".$lancheDetalhe['lnk_much']."' target='_blank'><img src='./images/DeliveryMuch LogoLight.svg' alt='AiQFome'></a>
                                     <p>R$".$lancheDetalhe["preco_del_much"]."</p>
                                 </div>";
                       }
-                      if ($lancheDetalhe["lnk_ifood"] !== NULL){
+                      if (!empty($lancheDetalhe["lnk_ifood"]) && $lancheDetalhe["preco_ifood"] != 0.00){
                           echo "<div class='deliveryPreco'>    
                                     <a href='".$lancheDetalhe['lnk_ifood']."' target='_blank'><img src='./images/ifood-43 1.svg' alt='AiQFome'></a>
                                     <p>R$".$lancheDetalhe["preco_ifood"]."</p>
                                 </div>";
                       }
-                      if ($lancheDetalhe["lnk_aiqfome"] !== NULL){
+                      if (!empty($lancheDetalhe["lnk_aiqfome"]) && $lancheDetalhe["preco_aiqfome"] != 0.00){
                           echo "<div class='deliveryPreco'>    
                                     <a href='".$lancheDetalhe['lnk_aiqfome']."' target='_blank'><img src='./images/logo_aiqfome.png' alt='AiQFome'></a>
                                     <p>R$".$lancheDetalhe["preco_aiqfome"]."</p>
@@ -141,7 +141,7 @@
                       </div>
                   </div>
               </div>
-              <div class='produto-info'>
+              <div class='produto-info' id='info-telaCheia'>
                   <p id='nota_media'>".$lancheDetalhe["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
                   <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
                   <div class='lanchonete-info cheia'>";

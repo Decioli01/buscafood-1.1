@@ -13,7 +13,10 @@
     $result = $conn -> query($sqlSelect);
           //caso cadastrado, aqui fara a exclusao dele
     if($result -> num_rows > 0){
+      $sqlDeleteNota = "DELETE FROM avaliacao where id_prod = $id";
       $sqlDelete = "DELETE FROM produtos WHERE proId=$id";
+
+      $resultDeleteNota = $conn -> query($sqlDeleteNota);
       $resultDelete = $conn -> query($sqlDelete);
     }
   }

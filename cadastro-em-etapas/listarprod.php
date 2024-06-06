@@ -88,7 +88,7 @@
         
         <header class="header">
             <div>
-                <a href="../index.html" class="logo">
+                <a href="./listarestab.php" class="logo">
                     <img src="./images/Logo.svg" alt="">
                 </a>
             </div>

@@ -16,7 +16,7 @@
 <body>
 <?php
     // Pega o ID da loja por meio da URL vindo do link clicado
-    $id_loja = mysqli_real_escape_string($conn, base64_decode($_GET['id_loja']));
+    $id_loja = base64_decode($_GET['id_loja']);
  
 
     include("conexao.php");

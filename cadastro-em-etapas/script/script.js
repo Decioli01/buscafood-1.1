@@ -90,3 +90,46 @@ jQuery(document).ready(function() {
 		}
 	});
 });
+
+//checks dos deliverys
+document.addEventListener('DOMContentLoaded', function() {
+	let checkifood = document.getElementById("ifood");
+	let checkdelmuch = document.getElementById("delMuch");
+	let checkaiqfome = document.getElementById("aiqFome");
+
+	let valorifood = document.getElementById("campovalorIfood");
+	let valordelmuch = document.getElementById("campovalorDelMuch");
+	let valoraiqfome = document.getElementById("campovalorAiqFome");
+
+	// Função para atualizar o estado dos campos de texto
+	function updateFieldState() {
+		if (checkifood.checked) {
+			valorifood.disabled = false;
+		} else {
+			valorifood.value = ''; // Limpa o campo
+			valorifood.disabled = true;
+		}
+
+		if (checkdelmuch.checked) {
+			valordelmuch.disabled = false;
+		} else {
+			valordelmuch.value = ''; // Limpa o campo
+			valordelmuch.disabled = true;
+		}
+
+		if (checkaiqfome.checked) {
+			valoraiqfome.disabled = false;
+		} else {
+			valoraiqfome.value = ''; // Limpa o campo
+			valoraiqfome.disabled = true;
+		}
+	}
+
+	// Verificação inicial dos estados dos checkboxes
+	updateFieldState();
+
+	// Adiciona listeners de eventos para os checkboxes
+	checkifood.addEventListener('change', updateFieldState);
+	checkdelmuch.addEventListener('change', updateFieldState);
+	checkaiqfome.addEventListener('change', updateFieldState);
+});
