@@ -174,7 +174,7 @@
                             <div class='card'>
                             <p id='nota_media'>".$campo["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
                                 <div class='card-img'>";
-                    echo "<img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>";
+                    echo "<img src='./images/produtos/".$campo["proImagem"]."' alt=''>";
                     echo "
                                 </div>
                                 <div class='card-info'>

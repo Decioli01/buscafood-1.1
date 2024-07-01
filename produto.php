@@ -23,7 +23,6 @@
             <a href="./contato.html">Contato</a>
             <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
             <a href="./app.html">Nosso App</a>
-            <a href="./cadastro-em-etapas/index.html" target="_blank" class="btn" id="login">Empresa</a>
             <label class="switch">
                 <input id="btnDarkMode" type="checkbox">
                 <span class="slider"></span>
@@ -143,7 +142,7 @@
               </div>
               <div class='produto-info' id='info-telaCheia'>
                   <p id='nota_media'>".$lancheDetalhe["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
-                  <img src='./cadastro-em-etapas/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
+                  <img src='./images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
                   <div class='lanchonete-info cheia'>";
                   echo 
                   "<div class='avaliacao'>

@@ -43,7 +43,6 @@
             <a href="index.html">Home</a>
             <a href="./contato.html">Contato</a>
             <a href="./app.html">Nosso App</a>
-            <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
             <label class="switch">
                 <input id="btnDarkMode" type="checkbox">
                 <span class="slider"></span>
@@ -54,7 +53,7 @@
         <div class="loja-info">
             <h1><?php echo $campo1["estNome"] ?></h1>
         </div>
-        <img src="<?php echo "./cadastro-em-etapas/images/estabelecimentos/".$campo1["estLogo"];?>" alt="" class="loja-logo">
+        <img src="<?php echo "./images/estabelecimentos/".$campo1["estLogo"];?>" alt="" class="loja-logo">
     </div>
     <div class="loja-produtos">
         <h1>Todos os Produtos</h1>
@@ -74,7 +73,7 @@
                             echo "<a href='./produto.php?id=".$id_criptado."'>
                                 <div class='card'>
                                     <div class='card-img'>
-                                        <img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>
+                                        <img src='./images/produtos/".$campo["proImagem"]."' alt=''>
                                     </div>
                                     <div class='card-info'>
                                         <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
