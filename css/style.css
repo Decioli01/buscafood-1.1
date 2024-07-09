@@ -11,6 +11,7 @@
   border: none;
   text-transform: capitalize;
   transition: all .1s linear;
+  scroll-behavior: smooth;
 }
 a{
   color: #000;
@@ -187,9 +188,6 @@ input:checked + .slider:before {
   transform: translateX(100%);
   box-shadow: inset 5px -5px 0px 0px #fff000;
 }
-
-
-
 /* HOME */
 .home{
   background-image: url('../images/background.png');
@@ -493,58 +491,6 @@ input:checked + .slider:before {
   transition: all 0.3s;
 }
 
-/* TERMOS DE USO */
-.termos{
-  margin: 0 auto;
-  margin-bottom: 3rem;
-  box-sizing: border-box;
-  overflow-y: scroll;
-  max-width: 80%;
-  height: 400px;
-  text-transform: none;
-  border-bottom: 1px solid #aaa;
-}
-.termos::-webkit-scrollbar {
-  width: 1rem;
-}
-.termos::-webkit-scrollbar-thumb {
-  background: #F0B212;
-  border-radius: 5rem;
-}
-.termos-box{
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #fff;
-}
-.termos-box .termos h2{
-  margin: 0px; 
-  line-height: 1.2;
-  font-size: 20px;
-  letter-spacing: -0.05em;
-  padding-bottom: 20px;
-}
-.termos-box .termos h3{
-  margin: 0px 0px 20px;
-  font-weight: 600; 
-  line-height: 1.2; 
-  font-size: 16px; 
-  letter-spacing: -0.05em; 
-}
-.termos-box .termos p{
-  margin-top: 0px;
-  margin-bottom: 1rem;
-  font-size: 16px;
-}
-.termos-box .termos br, .termos-box .termos li, .termos-box .termos h3, .termos-box .termos h2, .termos-box .termos p{
-  box-sizing: border-box;
-}
-.termos-box .check{
-  font-size: 1.5rem;
-  accent-color: #F0B212;
-}
-
 /* RESULTADOS */
 .logo-result img{
   width: 20rem;
@@ -643,7 +589,6 @@ input:checked + .slider:before {
 }
 .card-img img{
   margin: 0 auto;
-  /* max-width: 200px; */
   border-radius: 14px;
   width: 100%;
   height: 100px;
@@ -887,6 +832,72 @@ input:checked + .slider:before {
   color: #9e9e9e;
 }
 
+/* Sobre nós */
+#aboutUs{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+#aboutUs .title{
+  width: 30%;
+  height: 50px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+#aboutUs .title h1{
+  font-size: 4rem;
+  text-shadow: 3px 4px 10px #aaa;
+}
+#aboutUs .container, .quemSomos .container, .ondeSurgiu .container, .objetivos .container, .missao .container, .visao .container, .valores .container{
+  margin-top: 50px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+}
+.quemSomos .container, .objetivos .container, .missao .container, .ondeSurgiu .container, .visao .container,  .valores .container{
+ gap: 150px;
+}
+#aboutUs .container .image img, .quemSomos img, .objetivos img, .missao img, .ondeSurgiu img, .visao img,  .valores .container img{
+  width: 400px;
+}
+#aboutUs .content h1{
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+#aboutUs .content p{
+  text-transform: none;
+  font-size: 1.8rem;
+}
+#aboutUs .content ul{
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  list-style: none;
+}
+#aboutUs .content ul li a{
+  font-size: 1.8rem;
+  color: #f9f9f9;
+  padding: .5rem 1.8rem;
+}
+#aboutUs .content ul li a:hover{
+  margin: 0 5px;
+  color: #323232;
+}
+.quemSomos p, .ondeSurgiu p, .objetivos p, .missao p, .visao p, .valores li{
+  font-size: 1.9rem;
+  text-transform: none;
+  line-height: 2.5rem;
+  text-align: justify;
+}
+.quemSomos h1, .ondeSurgiu h1, .objetivos h1, .missao h1, .visao h1, .valores h1{
+  font-size: 2.5rem;
+  text-transform: none;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 /* CSS para responsividade das telas */
 /* media queries */
 @media (max-width: 2000px){
@@ -936,6 +947,10 @@ input:checked + .slider:before {
   }
   .produto .produto-info .lanchonete-info.mobile{
     display: none;
+  }
+  #aboutUs .content ul li a{
+    padding: .5rem 1.5rem;
+    font-size: 1.3rem;
   }
 }
 @media (max-width: 1024px){
@@ -1021,6 +1036,9 @@ input:checked + .slider:before {
   .produto .produto-info .lanchonete-info.mobile{
     display: none;
   }
+  #aboutUs .title h1{
+    font-size: 3rem;
+  }
 }
 
 @media (max-width: 768px){
@@ -1089,6 +1107,13 @@ input:checked + .slider:before {
   }
   .produto .produto-info .end-lanchonete{
     font-size: 1.8rem;
+  }
+  #aboutUs .container .image img, .quemSomos .container img, .ondeSurgiu .container img, .objetivos .container img, .missao .container img, .visao .container img,  .valores .container img{
+    width: 200px;
+  }
+  .quemSomos .container, .ondeSurgiu .container, .objetivos .container, .missao .container, .visao .container,  .valores .container{
+    margin-top: 50px;
+    gap: 100px;
   }
 }
 @media (max-width: 430px){
@@ -1213,5 +1238,33 @@ input:checked + .slider:before {
   .loja-header img{
     width: 15rem;
     margin-right: 15%;
+  }
+  #aboutUs .title{
+    width: 100px;
+    height: 30px;
+  }
+  #aboutUs .title h1{
+    font-size: 2rem;
+  }
+  #aboutUs .container, .ondeSurgiu .container, .missao .container,  .valores .container{
+    flex-direction: column;
+    gap: 50px;
+  }
+  .quemSomos .container, .objetivos .container, .visao .container{
+    flex-direction: column-reverse;
+    gap: 50px;
+  }
+  #aboutUs .container h1{
+    margin-top: -15px;
+    font-size: 2rem;
+  }
+  #aboutUs .container p, .quemSomos .container p, .objetivos .container p, .missao .container p, .ondeSurgiu .container p, .visao .container p, .valores .container li{
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  #aboutUs .content ul li a{
+    font-size: 1rem;
+    padding: .9rem;
   }
 }

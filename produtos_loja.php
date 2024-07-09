@@ -42,7 +42,7 @@
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="./contato.html">Contato</a>
-            <a href="./app.html">Nosso App</a>
+            <a href="./sobreNos.html">Sobre Nós</a>
             <label class="switch">
                 <input id="btnDarkMode" type="checkbox">
                 <span class="slider"></span>

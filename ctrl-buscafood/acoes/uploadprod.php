@@ -15,7 +15,7 @@
 		$consulta = mysqli_query($conn, $sql); //executa o sql
 			
 		if(is_uploaded_file($proImagem["tmp_name"])){ //faz o upload, se ok
-			move_uploaded_file($proImagem["tmp_name"],"../images/produtos/".$nome_arquivo); //move para a pasta fotos
+			move_uploaded_file($proImagem["tmp_name"],"../../images/produtos/".$nome_arquivo); //move para a pasta fotos
 		}
 		else{
 			echo "erro ao fazer upload.<br>";
