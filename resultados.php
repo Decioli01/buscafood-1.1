@@ -16,75 +16,34 @@
 </head>
 <body>
 <?php 
-    include("conexao.php");
-    // Faz a requisição das informações que foram preenchidas na tela inicial e guarda em variáveis
-    $prato = mysqli_real_escape_string($conn, $_REQUEST['prato']);
-    $local = mysqli_real_escape_string($conn, $_REQUEST['location']);
-    $categoria = mysqli_real_escape_string($conn, $_REQUEST['categorias']);
-      
-    // Realiza a verificação se o botão 'Filtrar' foi clicado, caso sim, realiza busca no banco informando o valor máximo passado pelo slide. Caso contrário, realiza a busca feita com as informações vindo da tela inicial;
-    if(@$_REQUEST['btn-filtrar']){
-        $filtro_preco = mysqli_real_escape_string($conn, $_REQUEST['slide-preco']);
-        $sqlSelect = "SELECT p.proId, p.proImagem, p.proNome, p.avaliacao_media,
-                LEAST (
-                        COALESCE(NULLIF(p.preco_ifood, 0), 999999),
-                        COALESCE(NULLIF(p.preco_del_much, 0), 999999),
-                        COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
-                    ) as menorPreco, 
-                    e.estNome, t.tamNome 
-                FROM produtos p
-                INNER JOIN tamanhos t ON p.tam_Id = t.tamId
-                INNER JOIN estabelecimentos e ON e.estId = p.est_Id
-                INNER JOIN cidades c ON c.cidId = e.cid_Id
-                INNER JOIN categorias ct ON ct.catId = p.cat_Id";
-        $sqlWhere = " WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') 
-                    AND c.cidNome LIKE '%$local%'  
-                    AND ct.catId = $categoria 
-                    AND LEAST (
-                        COALESCE(NULLIF(p.preco_ifood, 0), 999999),
-                        COALESCE(NULLIF(p.preco_del_much, 0), 999999),
-                        COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
-                    ) <= $filtro_preco";
-        $sqlOrder = " ORDER BY menorPreco, p.proNome;";
-        if (!empty(mysqli_real_escape_string($conn, $_REQUEST['tamanho']))){
-            $tamanho = mysqli_real_escape_string($conn, $_REQUEST['tamanho']);
-            $sqlWhere = $sqlWhere." AND tam_id = $tamanho";
-        }
-        if(!empty(mysqli_real_escape_string($conn, $_REQUEST['ordem']))){
-            $ordenacao = mysqli_real_escape_string($conn, $_REQUEST['ordem']);
-            if ($ordenacao == 1){
-                $sqlOrder = " ORDER BY menorPreco, p.proNome;";
-            }
-            else if ($ordenacao == 2){
-                $sqlOrder = " ORDER BY avaliacao_media desc, menorPreco, p.proNome;";
-            }
-        }
-    }
-    else{
-        $sqlSelect = "SELECT p.proId, p.proImagem, p.proNome, p.avaliacao_media,
-                LEAST (
-                        COALESCE(NULLIF(p.preco_ifood, 0), 999999),
-                        COALESCE(NULLIF(p.preco_del_much, 0), 999999),
-                        COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)
-                    ) as menorPreco, 
-                    e.estNome, t.tamNome 
-                FROM produtos p
-                INNER JOIN tamanhos t ON p.tam_Id = t.tamId
-                INNER JOIN estabelecimentos e ON e.estId = p.est_Id
-                INNER JOIN cidades c ON c.cidId = e.cid_Id
-                INNER JOIN categorias ct ON ct.catId = p.cat_Id";
-        $sqlWhere = " WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') 
-        AND c.cidNome LIKE '%$local%' AND ct.catId = $categoria";        
-        $sqlOrder = " ORDER BY menorPreco, p.proNome;";
-    }
-    $sqlCompleto = $sqlSelect . $sqlWhere . $sqlOrder;
-    // Executa a consulta SQL de acordo com a condição
-    $consulta = mysqli_query($conn, $sqlCompleto);
+   include("conexao.php");
 
-    if (!$consulta) {
-        die('Erro ao executar a consulta: '. mysqli_error($conn));}
+   // Faz a requisição das informações que foram preenchidas na tela inicial e guarda em variáveis
+   $prato = mysqli_real_escape_string($conn, $_REQUEST['prato']);
+   $local = mysqli_real_escape_string($conn, $_REQUEST['location']);
+   $categoria = mysqli_real_escape_string($conn, $_REQUEST['categorias']);
+   
+   // Realiza a verificação se o botão 'Filtrar' foi clicado
+   if (@$_REQUEST['btn-filtrar']) {
+       $filtro_preco = mysqli_real_escape_string($conn, $_REQUEST['slide-preco']);
+       $tamanho = !empty($_REQUEST['tamanho']) ? mysqli_real_escape_string($conn, $_REQUEST['tamanho']) : NULL;
+       $ordenacao = !empty($_REQUEST['ordem']) ? mysqli_real_escape_string($conn, $_REQUEST['ordem']) : NULL;
+   
+       // Monta a chamada da stored procedure quando botão clicado
+        $stmt = $conn->prepare("CALL BuscarProdutosComFiltro(?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssiiii", $prato, $local, $categoria, $filtro_preco, $tamanho, $ordenacao);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+   } else {
+       // Monta a chamada da stored procedure com os dados iniciais
+        $stmt = $conn->prepare("CALL BuscarProdutos(?, ?, ?)");
+        $stmt->bind_param("ssi", $prato, $local, $categoria);
+        $stmt->execute();
+        $result = $stmt->get_result();
+   }
     // Guarda a quantidade de itens encontrados na busca em uma variável
-    $count = mysqli_num_rows($consulta);
+    $count = mysqli_num_rows($result);
 
     echo "<div style='display: flex; justify-content: space-between; align-items: center; padding-top: 20px;'>
             <a href='index.html' class='logo-result' style='width: fit-content;'><img id='logo' src='./images/LogoLight.png' alt='' style='margin-left: 3rem;'></a>
@@ -120,7 +79,6 @@
                 <div class="filtro-tamanhos">
                     <h3 style="margin-top: 20px;">Tamanhos</h3>
                     <div class="inputsTamanhos">
-                        <input type="radio" name="tamanho" id="tam_0" value="" checked style="display: none;">
                         <div class="input">
                             <input type="radio" name="tamanho" id="tam_P" value="1">
                             <label for="tam_P">P</label>
@@ -138,7 +96,6 @@
                 <div class="filtro-ordem">
                     <h3 style="margin-top: 20px;">Ordem</h3>
                     <div class="inputsOrdem">
-                        <input type="radio" name="ordem" id="ord_0" value="" checked style="display: none;">
                         <div class="input">
                             <input type="radio" name="ordem" id="ord_P" value="1">
                             <label for="ord_P">Preço</label>
@@ -163,34 +120,48 @@
                     </div>";
             }
             else{
+                $nota_conn = new mysqli($host, $usuario, $senha, $bd);
+                
                 // Percorre o array de resultados, imprimindo cada índice com suas informações em um card
-                while($campo = mysqli_fetch_array($consulta)){           
+                while($campo = $result->fetch_assoc()){           
                     $id_criptado = base64_encode($campo["proId"]);
                     
-                    $nota = "SELECT COUNT(nota_avaliada) as total_notas FROM avaliacao WHERE id_prod = '".$campo['proId']."';";
-                    $nota_media = mysqli_fetch_array(mysqli_query($conn, $nota));
+                    $nota_query = "SELECT COUNT(nota_avaliada) as total_notas FROM avaliacao WHERE id_prod = '".$campo['proId']."'";
+
+                    $nota_result = $nota_conn->query($nota_query);
+                    
+                    if ($nota_result) {
+                        $nota_media = mysqli_fetch_assoc($nota_result);
+                        if ($nota_media) {
+                            $total_notas = $nota_media["total_notas"];
+                        } else {
+                            $total_notas = 0;
+                        }
+                    } else {
+                        $total_notas = 0;
+                        echo "Erro na query de notas: " . mysqli_error($conn);
+                    }
                 
                     echo "<a href='./produto.php?id=".$id_criptado."'>
                             <div class='card'>
-                            <p id='nota_media'>".$campo["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
+                            <p id='nota_media'>".$campo["avaliacao_media"]."<i class='fas fa-star'></i>(".$total_notas.")</p>
                                 <div class='card-img'>";
                     echo "<img src='./images/produtos/".$campo["proImagem"]."' alt=''>";
-                    echo "
-                                </div>
+                    echo "      </div>
                                 <div class='card-info'>
                                     <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
                                     <h3 style='color: #808080; text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;'>".$campo["estNome"]."</h3>
                                 </div>
                                 <div class='card-footer'>
-                                    
                                     <span class='text-title'>A partir de <br>R$".$campo["menorPreco"]."</span>
                                 </div>
                             </div> 
                         </a>";
                 } 
-                
-                }           
-            mysqli_close($conn);
+                $stmt->close();
+                $nota_conn->close();
+                mysqli_close($conn);
+            }           
         ?>            
     </div>
 </section> 
@@ -198,4 +169,3 @@
     <script src="./js/scriptFiltros.js"></script>
 </body>
 </html>
-

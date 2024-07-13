@@ -1,7 +1,7 @@
 <?php 
     $id_decriptado = base64_decode($_POST['id_prod']);
 
-    include_once ("./cadastro-em-etapas/acoes/conexao.php");
+    include_once ("./ctrl-buscafood/acoes/conexao.php");
 
     if (isset($_POST['estrela'])){
         if (!empty($_POST['estrela'])) {
