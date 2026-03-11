@@ -619,6 +619,60 @@ input:checked + .slider:before {
   box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
 }
 
+/* TERMOS */
+.termos {
+  margin: 0 auto;
+  margin-bottom: 3rem;
+  box-sizing: border-box;
+  overflow-y: scroll;
+  max-width: 80%;
+  height: 400px;
+  text-transform: none;
+  border: 1px solid #aaa;
+}
+.termos::-webkit-scrollbar {
+  width: 1rem;
+}
+.termos::-webkit-scrollbar-thumb {
+  background: #f0b212;
+  border-radius: 5rem;
+}
+.termos-box {
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.termos-box .termos h2 {
+  margin: 0px;
+  line-height: 1.2;
+  font-size: 20px;
+  letter-spacing: -0.05em;
+  padding-bottom: 20px;
+}
+.termos-box .termos h3 {
+  margin: 0px 0px 20px;
+  font-weight: 600;
+  line-height: 1.2;
+  font-size: 16px;
+  letter-spacing: -0.05em;
+}
+.termos-box .termos p {
+  margin-top: 0px;
+  margin-bottom: 1rem;
+  font-size: 16px;
+}
+.termos-box .termos br,
+.termos-box .termos li,
+.termos-box .termos h3,
+.termos-box .termos h2,
+.termos-box .termos p {
+  box-sizing: border-box;
+}
+.termos-box .check {
+  font-size: 1.5rem;
+  accent-color: #f0b212;
+}
 
 /* PRODUTO */
 .produto-body{
