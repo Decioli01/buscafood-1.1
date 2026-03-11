@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,18 +16,19 @@
 <body>
 <?php
     // Pega o ID da loja por meio da URL vindo do link clicado
-    $id_loja = $_GET['id_loja']; 
+    $id_loja = base64_decode($_GET['id_loja']);
+ 
 
     include("conexao.php");
 
     // Realiza a busca no banco de dados, trazendo somente produtos da lanchonete em especifico
-    $sql = "SELECT * FROM produtos p 
+    $sql = "SELECT *, LEAST (COALESCE(NULLIF(p.preco_ifood, 0), 999999), COALESCE(NULLIF(p.preco_del_much, 0), 999999), COALESCE(NULLIF(p.preco_aiqfome, 0), 999999)) as menorPreco FROM produtos p 
             INNER JOIN tamanhos t ON t.tamId = p.tam_Id
             INNER JOIN estabelecimentos e ON e.estId = p.est_Id
             INNER JOIN cidades c ON c.cidId = e.cid_Id
             INNER JOIN categorias ct ON ct.catId = p.cat_Id
-            WHERE e.estId = $id_loja
-            ORDER BY ct.catId, p.proPreco;";
+            WHERE e.estId = $id_loja 
+            ORDER BY ct.catId, menorPreco;";
 
     $consulta = mysqli_query($conn,$sql);
     $count = mysqli_num_rows($consulta);
@@ -41,9 +42,7 @@
         <nav class="navbar">
             <a href="index.html">Home</a>
             <a href="./contato.html">Contato</a>
-            <!-- <a href="./desenvolvedores.html">Desenvolvedores</a> -->
-            <a href="./app.html">Nosso App</a>
-            <a href="./cadastro-em-etapas/index.html" class="btn" id="login">Empresa</a>
+            <a href="./sobreNos.html">Sobre Nós</a>
             <label class="switch">
                 <input id="btnDarkMode" type="checkbox">
                 <span class="slider"></span>
@@ -54,7 +53,7 @@
         <div class="loja-info">
             <h1><?php echo $campo1["estNome"] ?></h1>
         </div>
-        <img src="<?php echo "./cadastro-em-etapas/images/estabelecimentos/".$campo1["estLogo"];?>" alt="" class="loja-logo">
+        <img src="<?php echo "./images/estabelecimentos/".$campo1["estLogo"];?>" alt="" class="loja-logo">
     </div>
     <div class="loja-produtos">
         <h1>Todos os Produtos</h1>
@@ -70,16 +69,17 @@
                     else{
                     // Percorre o array de resultados, imprimindo cada índice com suas informações em um card
                         while($campo = mysqli_fetch_array($consulta)){
-                            echo "<a href='./produto.php?id=".$campo["proId"]."'>
+                            $id_criptado = base64_encode($campo["proId"]);  
+                            echo "<a href='./produto.php?id=".$id_criptado."'>
                                 <div class='card'>
                                     <div class='card-img'>
-                                        <img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>
+                                        <img src='./images/produtos/".$campo["proImagem"]."' alt=''>
                                     </div>
                                     <div class='card-info'>
                                         <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
                                     </div>
                                     <div class='card-footer'>
-                                        <span class='text-title'>R$".$campo["proPreco"]."</span>
+                                        <span class='text-title'>R$".$campo["menorPreco"]."</span>
                                     </div>
                                 </div> 
                             </a>";

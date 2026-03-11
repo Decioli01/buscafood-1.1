@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Cadastro Estabelecimento - BuscaFood</title>
+		<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+		<link rel="stylesheet" href="./css/cadestab.css">
+
+	</head>
+
+	<body>
+		<!-- partial:index.partial.html -->
+		<form method="post" action="./acoes/cadastroest.php" enctype="multipart/form-data" class="wizard-section">
+
+			<div class="row no-gutters">
+				<div class="col-lg-6 col-md-6">
+					<div class="wizard-content-left">
+						
+						<div class="text-bg">
+							<h3>Bem Vindo!</h3>
+							<h1>Cadastre Seu Estabelecimento!</h1>
+						</div>
+						<div class="img-logo">
+							<img src="./images/Logo.svg" alt="">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-6 col-md-6">
+					<div class="form-wizard">
+						<form action="" method="post" role="form">
+							<div class="form-wizard-header">
+
+								<header class="header">
+									<div id="logout" >
+										<a href="listarestab.php">Cancelar</a>
+									</div>
+								</header>
+								
+								<p>Preencha todos os campos de formulário para dar o próximo passo</p>
+								<ul class="list-unstyled form-wizard-steps clearfix">
+									<li class="active"><span>1</span></li>
+									<li><span>2</span></li>
+									<li><span>3</span></li>
+									<li><span>4</span></li>
+								</ul>
+							</div>
+
+							<fieldset class="wizard-fieldset show">
+								<h5>Informação pessoal</h5>
+								<div class="form-group">
+									<input type="text" name="estNome" class="form-control " id="fname">
+									<label for="fname" class="wizard-form-text-label">Nome do Estabelecimento*</label>
+									<div class="wizard-form-error"></div>
+								</div>
+
+								<div class="form-group">
+									<input type="file" name="estLogo" class="form-control " id="logo" name="Logo" value="Logo">
+									<label id="labelLogo" for="logo" class="wizard-form-text-label">Logo</label>
+									<div class="wizard-form-error"></div>
+								</div>
+
+								<div class="form-group clearfix">
+									<a href="javascript:;" class="form-wizard-next-btn float-right">Próximo</a>
+								</div>
+							</fieldset>
+
+							<!-- Endereço -->
+							<fieldset class="wizard-fieldset">
+								<h5>Endereço</h5>
+								<div class="form-group">
+									<input type="text" name="estEndereco" class="form-control " id="email">
+									<label for="text" class="wizard-form-text-label">Logradouro</label>
+									<div class="wizard-form-error"></div>
+								</div>
+
+								<div class="form-group">
+									<select class="form-control " name="cid_Id" id="username">
+										<option value="" selected hidden disabled>Cidade*</option>
+										<option value="1">Tupã-SP</option>
+									</select>
+									<div class="wizard-form-error"></div>
+								</div>
+
+
+								<div class="form-group clearfix">
+									<a href="javascript:;" class="form-wizard-previous-btn float-left">Voltar</a>
+									<a href="javascript:;" class="form-wizard-next-btn float-right">Próximo</a>
+								</div>
+							</fieldset>
+
+							<!-- Redese Social -->
+							<fieldset class="wizard-fieldset">
+								<h5>Redes Sociais</h5>
+								<div class="form-group">
+									<input type="number" name="estWhatsapp" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="11" class="form-control " id="bname">
+									<label for="bname" class="wizard-form-text-label">WhatsApp* (apenas números)</label>
+									<div class="wizard-form-error"></div>
+								</div>
+
+								<div class="form-group">
+									<input type="text" name="lnk_face" class="form-control " id="brname">
+									<label for="brname" class="wizard-form-text-label">Facebook (link)</label>
+									<div class="wizard-form-error"></div>
+								</div>
+
+								<div class="form-group">
+									<input type="text" name="lnk_inst" class="form-control " id="acname">
+									<label for="acname" class="wizard-form-text-label">Instagram (link)</label>
+									<div class="wizard-form-error"></div>
+								</div>
+
+								<div class="form-group clearfix">
+									<a href="javascript:;" class="form-wizard-previous-btn float-left">Voltar</a>
+									<a href="javascript:;" class="form-wizard-next-btn float-right">Próximo</a>
+								</div>
+							</fieldset>
+
+							<!-- Lojas -->
+							<fieldset class="wizard-fieldset">
+								<h5>App Delivery</h5>
+								<div class="form-group">
+									<input type="text" name="lnk_ifood" class="form-control " id="honame">
+									<label for="honame" class="wizard-form-text-label">Ifood (Link)</label>
+									<div class="wizard-form-error"></div>
+								</div>
+
+								<div class="form-group">
+									<input type="text" name="lnk_much" class="form-control " id="honame">
+									<label for="honame" class="wizard-form-text-label">Delivery Much (Link)</label>
+									<div class="wizard-form-error"></div>
+								</div>
+
+								<div class="form-group">
+									<input type="text" name="lnk_aiqfome" class="form-control " id="honame">
+									<label for="honame" class="wizard-form-text-label">Aiqfome (Link)</label>
+									<div class="wizard-form-error"></div>
+								</div>
+								
+								<div class="form-group clearfix">
+									<a href="javascript:;" class="form-wizard-previous-btn float-left">Voltar</a>
+									<input type="submit" href="javascript:;" class="form-wizard-submit float-right submit" id="submit" name="btn_submit" value="Cadastrar"></a>
+								</div>
+							</fieldset>
+
+						</form>
+
+					</div>
+
+				</div>
+
+			</div>
+			
+		</form>
+		<!-- partial -->
+		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+		<script src="./script/script.js"></script>
+
+	</body>
+
+</html>

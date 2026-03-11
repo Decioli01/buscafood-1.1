@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,48 +13,37 @@
 <link rel="stylesheet" href="./css/style.css">
 
 <title>Resultado</title>
-<script>
-    function updateTextInput(val) {
-   document.getElementById('textInput').value=val; 
-}
-</script>
 </head>
 <body>
 <?php 
-    // Faz a requisição das informações que foram preenchidas na tela inicial e guarda em variaveis
-    $prato = $_REQUEST['prato'];
-    $local = $_REQUEST['location'];
-    $categoria = $_REQUEST['categorias'];
+   include("conexao.php");
 
-    include("conexao.php");
-    
-    // Realiza a verificação se o botão 'Filtrar' foi clicado, caso sim, realiza busca no banco informando o valor máximo passado pelo slide. Caso contrário, realiza a busca feita com as informações vindo da tela inicial;
-    if(@$_REQUEST['btn-filtrar']){
-        $filtro_preco = $_REQUEST['slide-preco'];
-        $sql = "SELECT p.proId, p.proImagem, p.proNome, p.proPreco, e.estNome, t.tamNome 
-                FROM produtos p
-                INNER JOIN tamanhos t ON p.tam_Id = t.tamId
-                INNER JOIN estabelecimentos e ON e.estId = p.est_Id
-                INNER JOIN cidades c ON c.cidId = e.cid_Id
-                INNER JOIN categorias ct ON ct.catId = p.cat_Id
-                WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') AND c.cidNome LIKE '%$local%' AND ct.catId = $categoria AND p.proPreco <= $filtro_preco
-                ORDER BY p.proPreco, p.proNome;";
-    }
-    else{
-    $sql = "SELECT p.proId, p.proImagem, p.proNome, p.proPreco, e.estNome, t.tamNome 
-            FROM produtos p
-            INNER JOIN tamanhos t ON p.tam_Id = t.tamId
-            INNER JOIN estabelecimentos e ON e.estId = p.est_Id
-            INNER JOIN cidades c ON c.cidId = e.cid_Id
-            INNER JOIN categorias ct ON ct.catId = p.cat_Id
-            WHERE (p.proNome LIKE '%$prato%' OR p.proDescricao LIKE '%$prato%') AND c.cidNome LIKE '%$local%' AND ct.catId = $categoria
-            ORDER BY p.proPreco, p.proNome;";
-    }
-    // Executa a consulta SQL de acordo com a condição
-    $consulta = mysqli_query($conn,$sql);
+   // Faz a requisição das informações que foram preenchidas na tela inicial e guarda em variáveis
+   $prato = mysqli_real_escape_string($conn, $_REQUEST['prato']);
+   $local = mysqli_real_escape_string($conn, $_REQUEST['location']);
+   $categoria = mysqli_real_escape_string($conn, $_REQUEST['categorias']);
+   
+   // Realiza a verificação se o botão 'Filtrar' foi clicado
+   if (@$_REQUEST['btn-filtrar']) {
+       $filtro_preco = mysqli_real_escape_string($conn, $_REQUEST['slide-preco']);
+       $tamanho = !empty($_REQUEST['tamanho']) ? mysqli_real_escape_string($conn, $_REQUEST['tamanho']) : NULL;
+       $ordenacao = !empty($_REQUEST['ordem']) ? mysqli_real_escape_string($conn, $_REQUEST['ordem']) : NULL;
+   
+       // Monta a chamada da stored procedure quando botão clicado
+        $stmt = $conn->prepare("CALL BuscarProdutosComFiltro(?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssiiii", $prato, $local, $categoria, $filtro_preco, $tamanho, $ordenacao);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    // Guarda a quantidade de itens encontrados na busca em uma variavel
-    $count = mysqli_num_rows($consulta);
+   } else {
+       // Monta a chamada da stored procedure com os dados iniciais
+        $stmt = $conn->prepare("CALL BuscarProdutos(?, ?, ?)");
+        $stmt->bind_param("ssi", $prato, $local, $categoria);
+        $stmt->execute();
+        $result = $stmt->get_result();
+   }
+    // Guarda a quantidade de itens encontrados na busca em uma variável
+    $count = mysqli_num_rows($result);
 
     echo "<div style='display: flex; justify-content: space-between; align-items: center; padding-top: 20px;'>
             <a href='index.html' class='logo-result' style='width: fit-content;'><img id='logo' src='./images/LogoLight.png' alt='' style='margin-left: 3rem;'></a>
@@ -64,27 +53,62 @@
             </label>
             </div>";  
     // Mostra a quantidade de itens encontrados com a busca
-    echo "<h1 style='margin-top: 1rem; text-align: center;'>Exibindo $count resultados para '$prato' em '$local'</h1>";
+    echo "<h1 style='padding: 10px; margin-top: 1rem; text-align: center;'>Exibindo $count resultados para '$prato' em '$local'</h1>";
 ?>
 <section class="results">
     <div class="results-filtros">
-        <h3>Filtros</h3>
-        <!-- Guarda as informações dos campos de busca vindo da tela inicial para quando o botão 'Filtrar' for clicado não forem perdidas -->
-        <?php echo '<form action="./resultados.php?prato='.$prato.'&location='.$local.'&categorias='.$categoria.'">
-            <input type="hidden" name="prato" value='.$prato.'> 
-            <input type="hidden" name="location" value='.$local.'> 
-            <input type="hidden" name="categorias" value='.$categoria.'>' 
-        ?>
-            <div class="results-slide">
-                <h3>Valor Máximo</h3>
-                <input type="range" min="10" max="100" step="10.00" value="<?php echo $filtro_preco?>" name="slide-preco">
-                <div class="results-slide-numbers">
-                    <h4>R$10,00</h4>
-                    <h4>R$100,00</h4>
+        <div id="btn-filtros">
+            <i class="fa-solid fa-filter"></i> Filtros
+        </div>
+        <div class="filtros">
+            <h3>Filtros</h3>
+            <!-- Guarda as informações dos campos de busca vindo da tela inicial para quando o botão 'Filtrar' for clicado não forem perdidas -->
+            <?php echo '<form action="./resultados.php" method="post">
+                <input type="hidden" name="prato" value='.$prato.'> 
+                <input type="hidden" name="location" value='.$local.'> 
+                <input type="hidden" name="categorias" value='.$categoria.'>' 
+            ?>
+                <div class="results-slide">
+                    <h3>Valor Máximo</h3>
+                    <input type="range" min="10" max="100" step="10.00" value="<?php echo $filtro_preco?>" name="slide-preco">
+                    <div class="results-slide-numbers">
+                        <h4>R$10,00</h4>
+                        <h4>R$100,00</h4>
+                    </div>
                 </div>
-                <input type="submit" name="btn-filtrar" class="btn" value="Filtrar" style="margin: 1.5rem; align-self: center; padding: 1rem;">
-                </form>
-            </div> 
+                <div class="filtro-tamanhos">
+                    <h3 style="margin-top: 20px;">Tamanhos</h3>
+                    <div class="inputsTamanhos">
+                        <div class="input">
+                            <input type="radio" name="tamanho" id="tam_P" value="1">
+                            <label for="tam_P">P</label>
+                        </div>
+                        <div class="input">
+                            <input type="radio" name="tamanho" id="tam_M" value="2">
+                            <label for="tam_M">M</label>
+                        </div>
+                        <div class="input">
+                            <input type="radio" name="tamanho" id="tam_G" value="3">
+                            <label for="tam_G">G</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="filtro-ordem">
+                    <h3 style="margin-top: 20px;">Ordem</h3>
+                    <div class="inputsOrdem">
+                        <div class="input">
+                            <input type="radio" name="ordem" id="ord_P" value="1">
+                            <label for="ord_P">Preço</label>
+                        </div>
+                        <div class="input">
+                            <input type="radio" name="ordem" id="ord_A" value="2">
+                            <label for="ord_A">Avaliação</label>
+                        </div>
+                    </div>
+                </div> 
+                <input type="submit" name="btn-filtrar" class="btn" value="Filtrar" style="margin: 1.5rem; align-self: center; width: 100px; padding: .5rem;">
+            </form>
+        </div>   
     </div>
     <div class="results-cards">
         <?php
@@ -96,29 +120,52 @@
                     </div>";
             }
             else{
+                $nota_conn = new mysqli($host, $usuario, $senha, $bd);
+                
                 // Percorre o array de resultados, imprimindo cada índice com suas informações em um card
-                while($campo = mysqli_fetch_array($consulta)){               
-                    echo "<a href='./produto.php?id=".$campo["proId"]."'>
+                while($campo = $result->fetch_assoc()){           
+                    $id_criptado = base64_encode($campo["proId"]);
+                    
+                    $nota_query = "SELECT COUNT(nota_avaliada) as total_notas FROM avaliacao WHERE id_prod = '".$campo['proId']."'";
+
+                    $nota_result = $nota_conn->query($nota_query);
+                    
+                    if ($nota_result) {
+                        $nota_media = mysqli_fetch_assoc($nota_result);
+                        if ($nota_media) {
+                            $total_notas = $nota_media["total_notas"];
+                        } else {
+                            $total_notas = 0;
+                        }
+                    } else {
+                        $total_notas = 0;
+                        echo "Erro na query de notas: " . mysqli_error($conn);
+                    }
+                
+                    echo "<a href='./produto.php?id=".$id_criptado."'>
                             <div class='card'>
-                                <div class='card-img'>
-                                    <img src='./cadastro-em-etapas/images/produtos/".$campo["proImagem"]."' alt=''>
-                                </div>
+                            <p id='nota_media'>".$campo["avaliacao_media"]."<i class='fas fa-star'></i>(".$total_notas.")</p>
+                                <div class='card-img'>";
+                    echo "<img src='./images/produtos/".$campo["proImagem"]."' alt=''>";
+                    echo "      </div>
                                 <div class='card-info'>
                                     <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
                                     <h3 style='color: #808080; text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;'>".$campo["estNome"]."</h3>
                                 </div>
                                 <div class='card-footer'>
-                                    <span class='text-title'>R$".$campo["proPreco"]."</span>
+                                    <span class='text-title'>A partir de <br>R$".$campo["menorPreco"]."</span>
                                 </div>
                             </div> 
                         </a>";
-                    } 
-                }           
-            mysqli_close($conn);
+                } 
+                $stmt->close();
+                $nota_conn->close();
+                mysqli_close($conn);
+            }           
         ?>            
     </div>
 </section> 
-<script src="./js/darkMode.js"></script>
+    <script src="./js/darkMode.js"></script>
+    <script src="./js/scriptFiltros.js"></script>
 </body>
 </html>
-
