@@ -142,7 +142,7 @@
               </div>
               <div class='produto-info' id='info-telaCheia'>
                   <p id='nota_media'>".$lancheDetalhe["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
-                  <img src='./images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
+                  <img src='./ctrl-buscafood/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
                   <div class='lanchonete-info cheia'>";
                   echo 
                   "<div class='avaliacao'>

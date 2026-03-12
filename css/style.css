@@ -136,7 +136,7 @@ section{
   margin-bottom: 10px;
 }
 .header .logo img {
-  width: 19rem;
+  width: 15rem;
 }
 .header .fa-times, #btn-filtros .fa-times {
   transform: rotate(180deg);

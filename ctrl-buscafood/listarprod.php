@@ -17,6 +17,14 @@
     }
     else{
              
+        // Query separada para obter dados do estabelecimento (nome e logo)
+        $sql_estab = "SELECT estNome, estLogo FROM estabelecimentos WHERE estId = '$id_estab'";
+        $result_estab = mysqli_query($conn, $sql_estab);
+        if (!$result_estab) {
+            die('Erro ao executar a consulta do estabelecimento: ' . mysqli_error($conn));
+        }
+        $estab_data = mysqli_fetch_array($result_estab);
+
         if(!empty($_GET['search'])){
             $data = $_GET['search'];
                     //realiza o select com o que foi inserido no campo de busca
@@ -36,7 +44,6 @@
                     AND (p.proNome LIKE '%$data%' or p.proDescricao LIKE '%$data%') 
                 ORDER BY cat_Id, proNome ASC, tam_Id asc";
                     //realiza o select trazendo o nome e a logo do estabelecimento
-            $sql1 = "SELECT estNome, estLogo FROM estabelecimentos WHERE estId = '$id_estab'";
         }
         else{//realiza o select dos produtos assim que o usuario loga
             $sql = "SELECT *,  date_format(p.proAtualizacao, '%d  %m. %Y') as dataAtualizacao,
@@ -53,16 +60,12 @@
             INNER JOIN categorias ct ON ct.catId = p.cat_Id
             WHERE p.est_Id = '$id_estab' 
             ORDER BY cat_Id, proNome ASC, tam_Id asc";
-                //realiza o select trazendo o nome e a logo do estabelecimento
-            $sql1 = "SELECT estNome, estLogo FROM estabelecimentos WHERE estId = '$id_estab'";
-
         }
         $result = mysqli_query($conn, $sql);
         if (!$result) {
     		die('Erro ao executar a consulta: ' . mysqli_error($conn));}
 
-        $result1 = mysqli_query($conn,$sql1);
-        $campo1 = mysqli_fetch_assoc($result1);
+        // Remova o $user_data = mysqli_fetch_array($result); aqui!
     }
 
 ?>
@@ -74,7 +77,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Produtos - BuscaFood®</title>
+        <title>Produtos - <?php echo $estab_data["estNome"]?></title>
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
         <!-- importação do bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -89,7 +93,7 @@
         <header class="header">
             <div>
                 <a href="./listarestab.php" class="logo">
-                    <img src="./images/Logo.svg" alt="">
+                    <img src="../images/logoDarkSF.png" alt="">
                 </a>
             </div>
             
@@ -109,9 +113,9 @@
 
             <div class="loja-header">
                 <h1>
-                    <?php echo $campo1["estNome"]?>
+                    <?php echo $estab_data["estNome"]?>
                 </h1>
-                <img src="./images/estabelecimentos/<?php echo $campo1["estLogo"]?>" alt="">
+                <img src="./images/estabelecimentos/<?php echo $estab_data["estLogo"]?>" alt="">
             </div>
 
             <a style="display: block; width: 180px; height: 60px; text-decoration: none;" href="cadprod.php?id_estab=<?php echo $id_estab?>">
@@ -142,7 +146,7 @@
 
                         <?php
 
-                            while($user_data = mysqli_fetch_array($result)){
+                            while ($user_data = mysqli_fetch_array($result)){
                                 echo "<tr>";
                                    '<input type="hidden" id="produto" value="'.$user_data['proId'].'">';
                                     "</td>";

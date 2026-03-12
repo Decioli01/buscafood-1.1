@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todos os Estabelecimentos - BuscaFood®</title>
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
         <!-- biblioteca de icones -->
@@ -15,39 +16,34 @@
     <?php 
         include_once('./acoes/conexao.php');
 
-        if(!empty($_GET['busca']) and !empty($_GET['cidade'])){
+        // Verifica se há busca e cidade (ambos devem existir e não estar vazios)
+        if (isset($_GET['busca']) && !empty($_GET['busca']) && isset($_GET['cidade']) && !empty($_GET['cidade'])){
             $data = $_GET['busca'];
             $cidade = $_GET['cidade'];
-                    //realiza o select com o que foi inserido no campo de busca
             $sql = "SELECT * FROM estabelecimentos e
-                    INNER JOIN cidades c
-                    ON c.cidId = e.cid_Id
-                    WHERE e.estNome LIKE '%$data%' 
-                        AND e.cid_Id = $cidade
+                    INNER JOIN cidades c ON c.cidId = e.cid_Id
+                    WHERE e.estNome LIKE '%$data%' AND e.cid_Id = $cidade
                     ORDER BY e.estNome";
-                    //realiza o select trazendo o nome e a logo do estabelecimento
         }
-        if (empty($_GET['cidade'])){
+        // Verifica se há apenas busca (cidade pode não existir ou estar vazia)
+        elseif (isset($_GET['busca']) && !empty($_GET['busca'])){
             $data = $_GET['busca'];
             $sql = "SELECT * FROM estabelecimentos e
-                    INNER JOIN cidades c
-                    ON c.cidId = e.cid_Id
+                    INNER JOIN cidades c ON c.cidId = e.cid_Id
                     WHERE e.estNome LIKE '%$data%'";
         }
-        else{
-                    //realiza o select dos produtos assim que o usuario loga
+        // Caso padrão: sem filtros (primeiro acesso ou sem parâmetros)
+        else {
             $sql = "SELECT * FROM estabelecimentos e
-                    INNER JOIN cidades c
-                    ON c.cidId = e.cid_Id
+                    INNER JOIN cidades c ON c.cidId = e.cid_Id
                     ORDER BY e.cid_Id, e.estNome";
-
         }
         $consulta = mysqli_query($conn, $sql);
     ?>
     <header class="header">
         <div>
             <a href="../index.html" class="logo">
-                <img src="./images/Logo.svg" alt="">
+                <img src="../images/logoDarkSF.png" alt="">
             </a>
         </div>
         

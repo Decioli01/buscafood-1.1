@@ -147,7 +147,7 @@
                             <div class='card'>
                             <p id='nota_media'>".$campo["avaliacao_media"]."<i class='fas fa-star'></i>(".$total_notas.")</p>
                                 <div class='card-img'>";
-                    echo "<img src='./images/produtos/".$campo["proImagem"]."' alt=''>";
+                    echo "<img src='./ctrl-buscafood/images/produtos/".$campo["proImagem"]."' alt=''>";
                     echo "      </div>
                                 <div class='card-info'>
                                     <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
