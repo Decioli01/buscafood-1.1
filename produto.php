@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
     <!-- font awesome icones -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
@@ -16,7 +17,7 @@
 </head>
 <body class="produto-body">
     <header class="header">
-        <a href="index.html" class="logo"><img id="logo" src="./images/LogoLight.png" alt=""></a>
+        <a href="index.html" class="logo"><img id="logo" src="./images/LogoLight2.png" alt=""></a>
         <div id="menu-btn" class="fas fa-bars icons"></div>       
         <nav class="navbar">
             <a href="index.html">Home</a>
@@ -141,7 +142,7 @@
               </div>
               <div class='produto-info' id='info-telaCheia'>
                   <p id='nota_media'>".$lancheDetalhe["avaliacao_media"]."<i class='fas fa-star'></i>(".$nota_media["total_notas"].")</p>
-                  <img src='./images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
+                  <img src='./ctrl-buscafood/images/produtos/".$lancheDetalhe["proImagem"]."' alt=''>
                   <div class='lanchonete-info cheia'>";
                   echo 
                   "<div class='avaliacao'>

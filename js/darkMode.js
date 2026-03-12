@@ -38,7 +38,7 @@ darkModebtn.onclick = () =>
     }
 
     if (darkModebtn.checked){
-      document.querySelector('#logo').src = './images/LogoDark.svg';
+      document.querySelector('#logo').src = './images/logoDarkSF.png';
       if (logoDelM){
         logoDelM.src = './images/DeliveryMuch LogoDark.svg';
       }
@@ -52,7 +52,7 @@ darkModebtn.onclick = () =>
    }
     else {
       darkModebtn.checked = false;
-      document.querySelector('#logo').src = './images/LogoLight.png';
+      document.querySelector('#logo').src = './images/LogoLight2.png';
       if (headerLoja){
         headerLoja.style.backgroundColor = '#f9f9f9';
       }

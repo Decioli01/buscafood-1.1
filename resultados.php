@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 <!-- font awesome icones -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
@@ -46,7 +47,7 @@
     $count = mysqli_num_rows($result);
 
     echo "<div style='display: flex; justify-content: space-between; align-items: center; padding-top: 20px;'>
-            <a href='index.html' class='logo-result' style='width: fit-content;'><img id='logo' src='./images/LogoLight.png' alt='' style='margin-left: 3rem;'></a>
+            <a href='index.html' class='logo-result' style='width: fit-content;'><img id='logo' src='./images/LogoLight2.png' alt='' style='margin-left: 3rem;'></a>
             <label style='margin-right: 20px' class='switch'>
                 <input id='btnDarkMode' type='checkbox'>
                 <span class='slider'></span>
@@ -146,7 +147,7 @@
                             <div class='card'>
                             <p id='nota_media'>".$campo["avaliacao_media"]."<i class='fas fa-star'></i>(".$total_notas.")</p>
                                 <div class='card-img'>";
-                    echo "<img src='./images/produtos/".$campo["proImagem"]."' alt=''>";
+                    echo "<img src='./ctrl-buscafood/images/produtos/".$campo["proImagem"]."' alt=''>";
                     echo "      </div>
                                 <div class='card-info'>
                                     <p style='text-overflow: ellipsis; white-space: nowrap; overflow-x: hidden;' class='text-title'>".$campo["proNome"]." (".$campo["tamNome"].")</p>
