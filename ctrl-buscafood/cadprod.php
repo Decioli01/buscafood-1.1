@@ -27,7 +27,7 @@
 							<h1>Cadastre Seu Produto!</h1>
 						</div>
 						<div class="img-logo">
-							<img src="./images/Logo.svg" alt="">
+							<img src="../images/logoDarkSF.png" alt="BuscaFood®">
 						</div>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 								</div>
 
 								<div class="form-group">
-									<textarea name="descricaoProd" id="descricaoProd" required maxlength="50"></textarea>
+									<textarea name="descricaoProd" id="descricaoProd" required maxlength="200"></textarea>
 									<label id="labelLogo" for="descricaoProd" class="wizard-form-text-label">Descrição*</label>
 									<div class="wizard-form-error"></div>
 								</div>

@@ -51,7 +51,7 @@
                             <h1>Atualize Seu Produto!</h1>
                         </div>
                         <div class="img-logo">
-                            <img src="./images/Logo.svg" alt="">
+                            <img src="../images/logoDarkSF.png" alt="BuscaFood®">
                         </div>
                     </div>
                 </div>

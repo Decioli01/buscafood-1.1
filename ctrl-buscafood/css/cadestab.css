@@ -21,23 +21,21 @@ body {
   overflow-y: hidden;
 }
 input[type="text"], option, select, input[type="number"], textarea{
-  font-size: 20px !important;
+  font-size: 16px !important;
 }
 
 .form-wizard .form-wizard-header header div#logout{
   display: block;
   padding: 10px 20px;
   font-family: 'Poppins', sans-serif;
-  /* font-size: 17px; */
   text-transform: uppercase;
   letter-spacing: 1px;
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid #BDBFBF;
   transition: .5s;
-  width: 25%;
   margin-left: 70%;
-  margin-top: -18%;
+  margin-top: -16%;
   margin-bottom: 5%;
 }
 
@@ -114,7 +112,7 @@ input[type="text"], option, select, input[type="number"], textarea{
 }
 
 .form-wizard {
-  margin-top: 100px;
+  margin-top: 80px;
   color: #888888;
   padding: 30px;
 }
@@ -135,6 +133,8 @@ input[type="text"], option, select, input[type="number"], textarea{
   cursor: pointer;
 }
 .form-wizard #descricaoProd{
+  color: #495057;
+  padding: 10px;
   width: 100%;
   height: 80%;
 }
@@ -236,10 +236,8 @@ input[type="text"], option, select, input[type="number"], textarea{
 .form-wizard .form-control {
   font-weight: 300;
   height: auto !important;
-  padding: 15px;
-  color: #888888;
-  background-color: #f1f1f1;
-  border: none;
+  padding: 10px;
+  border: 1px solid #dddddd;
 }
 
 .form-wizard .form-control:focus {
