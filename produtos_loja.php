@@ -33,9 +33,7 @@
 
     $consulta = mysqli_query($conn,$sql);
     $count = mysqli_num_rows($consulta);
-    
-    $consulta1 = mysqli_query($conn,$sql); 
-    $campo1 = mysqli_fetch_array($consulta1);
+    $campo = mysqli_fetch_array($consulta);
 ?>
     <header class="header" id="header-loja">
         <a href="index.html" class="logo"><img id="logo" src="./images/LogoLight2.png" alt=""></a>
@@ -52,9 +50,9 @@
     </header>
     <div class="loja-header">
         <div class="loja-info">
-            <h1><?php echo $campo1["estNome"] ?></h1>
+            <h1><?php echo $campo["estNome"] ?></h1>
         </div>
-        <img src="<?php echo "./images/estabelecimentos/".$campo1["estLogo"];?>" alt="" class="loja-logo">
+        <img src="<?php echo "./images/estabelecimentos/".$campo["estLogo"];?>" alt="" class="loja-logo">
     </div>
     <div class="loja-produtos">
         <h1>Todos os Produtos</h1>
@@ -69,7 +67,7 @@
                     }
                     else{
                     // Percorre o array de resultados, imprimindo cada índice com suas informações em um card
-                        while($campo = mysqli_fetch_array($consulta)){
+                        while($campo){
                             $id_criptado = base64_encode($campo["proId"]);  
                             echo "<a href='./produto.php?id=".$id_criptado."'>
                                 <div class='card'>
